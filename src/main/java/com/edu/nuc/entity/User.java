@@ -2,6 +2,7 @@ package com.edu.nuc.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Created by macbookair on 2018/4/9.
@@ -22,6 +23,31 @@ public class User implements Serializable{
 
     @Column
     private Integer power;
+
+    @Column
+    private BigDecimal balance;
+
+
+
+    /**
+     * 管理员 0
+     * 普通用户 1
+     */
+    public static final Integer adminpower=0;
+    /**
+     * 管理员 0
+     * 普通用户 1
+     */
+    public static final Integer userpower=1;
+
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 
     public Integer getUid() {
         return uid;

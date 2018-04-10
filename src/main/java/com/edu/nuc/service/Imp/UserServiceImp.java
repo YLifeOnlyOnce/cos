@@ -19,4 +19,13 @@ public class UserServiceImp implements UserService{
         return userJPA.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 
     }
+
+    @Override
+    public User regist(User user) {
+
+        userJPA.save(user);
+        return null;
+    }
+
+
 }

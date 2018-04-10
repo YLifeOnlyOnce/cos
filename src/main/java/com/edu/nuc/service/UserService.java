@@ -16,4 +16,6 @@ public interface UserService {
 
     User findByUsernameAPassword(User user);
 
+    User regist(User user);
+
 }

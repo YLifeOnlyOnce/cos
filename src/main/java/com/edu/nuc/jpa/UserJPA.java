@@ -9,4 +9,5 @@ import com.sun.xml.internal.bind.v2.model.core.ID;
 public interface UserJPA extends BaseJPA<User,Integer> {
 
     User findByUsernameAndPassword(String username,String password);
+
 }
