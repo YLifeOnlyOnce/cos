@@ -24,7 +24,7 @@ public class UserServiceImp implements UserService{
     public User regist(User user) {
 
         userJPA.save(user);
-        return null;
+        return user;
     }
 
 

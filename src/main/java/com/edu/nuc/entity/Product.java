@@ -13,6 +13,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer pid;
+
     @Column
     private String pname;
 
@@ -64,4 +65,5 @@ public class Product {
     public void setSalesvolume(Integer salesvolume) {
         this.salesvolume = salesvolume;
     }
+
 }

@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 public class RegistController {
     @Autowired
     UserService userService;
-    Logger log = LoggerFactory.getLogger(LoginController.class);
+    Logger log = LoggerFactory.getLogger(RegistController.class);
 
     @RequestMapping("/regist")
     public ModelAndView regist(User user) {
