@@ -66,4 +66,13 @@ public class Product {
         this.salesvolume = salesvolume;
     }
 
+    public Product(String pname, String pimg, BigDecimal price, Integer salesvolume) {
+        this.pname = pname;
+        this.pimg = pimg;
+        this.price = price;
+        this.salesvolume = salesvolume;
+    }
+
+    public Product() {
+    }
 }

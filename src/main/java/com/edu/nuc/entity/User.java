@@ -80,4 +80,14 @@ public class User implements Serializable{
     public void setPower(Integer power) {
         this.power = power;
     }
+
+    public User(String username, String password, Integer power, BigDecimal balance) {
+        this.username = username;
+        this.password = password;
+        this.power = power;
+        this.balance = balance;
+    }
+
+    public User() {
+    }
 }

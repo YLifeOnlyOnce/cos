@@ -25,8 +25,7 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
     }
 
     @Override
-    public boolean insert(HttpSession session, Integer pid, Integer conut) {
-        User user = (User) session.getAttribute("user");
+    public ShoppingCart insert(User user, Integer pid, Integer conut) {
         Product product = new Product();
         product.setPid(pid);
         ShoppingCart shoppingCart = new ShoppingCart();
@@ -34,7 +33,7 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
         shoppingCart.setUser(user);
         shoppingCart.setProducts(product);
         ShoppingCart save = shoppingCartJpa.save(shoppingCart);
-        return save.getScid()!=null;
+        return save;
     }
 
     @Override

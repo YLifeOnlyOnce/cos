@@ -1,6 +1,7 @@
 package com.edu.nuc.service;
 
 import com.edu.nuc.entity.ShoppingCart;
+import com.edu.nuc.entity.User;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -18,12 +19,12 @@ public interface ShoppingCartService {
 
     /**
      * 添加购物车记录
-     * @param session 当前session
+     * @param user 当前登录用户从session获得
      * @param pid 商品id
      * @param conut 商品数量
      * @return 执行结果
      */
-    boolean insert(HttpSession session , Integer pid , Integer conut);
+    ShoppingCart insert(User user, Integer pid , Integer conut);
 
 
     /**
