@@ -4,10 +4,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>testpage</title>
+    <title>test</title>
 </head>
 <body>
     <span th:text="${user}">无显示</span>
     <span class="" style="color: red" th:if="${user.username}">userinfo</span>
+    <table>
+        <tr th:each="pro,${productlist}">
+            <td th:text="${pro.pname}">wuxianshi</td>
+        </tr>
+    </table>
 </body>
 </html>

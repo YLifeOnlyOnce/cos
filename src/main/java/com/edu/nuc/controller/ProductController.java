@@ -30,7 +30,7 @@ public class ProductController  {
 
     @RequestMapping("/findallproduct")
     public ModelAndView findAllProduct(){
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("productview");
         List <Product> productList = productService.findAll();
         modelAndView.addObject("productlist",productList);
         log.info("查到所有商品");
@@ -39,21 +39,22 @@ public class ProductController  {
 
     @RequestMapping("/putproduct")
     public ModelAndView putProduct(Product product,MultipartFile file){
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("productview");
 
         String filename=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
         log.info("filename:"+filename);
         String newfilename = UUID.randomUUID()+filename;
+        String replace = newfilename.replace("-", "");
 
-        File serverfile = new File(webAppConfigurer.linux_path+newfilename);
+        File serverfile = new File(webAppConfigurer.linux_path+replace);
         try {
             file.transferTo(serverfile);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String replace = newfilename.replace("-", "");
-        product.setPimg("cospics"+"/"+replace);
+
+        product.setPimg("cospic"+"/"+replace);
         productService.putProduct(product);
         return modelAndView;
 
