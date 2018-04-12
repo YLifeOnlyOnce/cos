@@ -53,7 +53,7 @@ public class ProductController  {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        product.setDiscountstatus(product.notdiscount);
         product.setPimg("cospic"+"/"+replace);
         productService.putProduct(product);
         return modelAndView;

@@ -22,9 +22,45 @@ public class Product {
 
     @Column
     private BigDecimal price;
-
+//    售价
     @Column
     private Integer salesvolume;
+//    折扣价
+    @Column
+    private Integer discountprice;
+//    是否打折状态
+    @Column
+    private Integer discountstatus;
+
+
+    /**
+     * 打折 ： 0
+     * 不打折： 1
+     */
+    public static final Integer discount = 0;
+
+
+    /**
+     * 打折 ： 0
+     * 不打折 ： 1
+     */
+    public static final Integer notdiscount = 1;
+
+    public Integer getDiscountprice() {
+        return discountprice;
+    }
+
+    public void setDiscountprice(Integer discountprice) {
+        this.discountprice = discountprice;
+    }
+
+    public Integer getDiscountstatus() {
+        return discountstatus;
+    }
+
+    public void setDiscountstatus(Integer discountstatus) {
+        this.discountstatus = discountstatus;
+    }
 
     public Integer getPid() {
         return pid;

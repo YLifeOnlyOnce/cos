@@ -5,11 +5,13 @@ import com.edu.nuc.jpa.UserJPA;
 import com.edu.nuc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by macbookair on 2018/4/9.
  */
 @Service
+@Transactional(rollbackFor = Exception.class )
 public class UserServiceImp implements UserService{
     @Autowired
     UserJPA userJPA;
