@@ -6,7 +6,6 @@ import com.edu.nuc.entity.User;
 import java.util.List;
 
 public interface OrderFormJpa extends BaseJPA<OrderForm,Integer> {
-    List<OrderForm> findByUser(User user);
-
-    List<OrderForm> findByState(int state);
+    List<OrderForm> findByUserOrderByPlaceTimeDesc(User user);
+    List<OrderForm> findByStateOrderByPlaceTimeDesc(int state);
 }

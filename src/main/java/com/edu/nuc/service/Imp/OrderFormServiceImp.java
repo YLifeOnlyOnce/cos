@@ -83,11 +83,11 @@ public class OrderFormServiceImp implements OrderFormService {
 
     @Override
     public List<OrderForm> selectOrderByUser(User user) {
-        return orderFormJpa.findByUser(user);
+        return orderFormJpa.findByUserOrderByPlaceTimeDesc(user);
     }
 
     @Override
     public List<OrderForm> selectOrderByState(int state) {
-        return orderFormJpa.findByState(state);
+        return orderFormJpa.findByStateOrderByPlaceTimeDesc(state);
     }
 }

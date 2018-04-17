@@ -7,6 +7,12 @@
 <body>
 <div th:each="list:${lists}">
     <div th:text="${list}"></div>
+<button th:onclick="'javascript:add(\''+${list}+'\')'"></button>
 </div>
+<script >
+    function add(a) {
+        alert(a);
+    }
+</script>
 </body>
 </html>
