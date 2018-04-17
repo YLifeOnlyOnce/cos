@@ -28,12 +28,16 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
     public ShoppingCart insert(User user, Integer pid, Integer conut) {
         Product product = new Product();
         product.setPid(pid);
+        ShoppingCart byUserAndProducts = shoppingCartJpa.findByUserAndProducts(user, product);
+        if (byUserAndProducts != null) {
+            byUserAndProducts.setConut(byUserAndProducts.getConut() + 1);
+            return shoppingCartJpa.save(byUserAndProducts);
+        }
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setConut(conut);
         shoppingCart.setUser(user);
         shoppingCart.setProducts(product);
-        ShoppingCart save = shoppingCartJpa.save(shoppingCart);
-        return save;
+        return shoppingCartJpa.save(shoppingCart);
     }
 
     @Override
