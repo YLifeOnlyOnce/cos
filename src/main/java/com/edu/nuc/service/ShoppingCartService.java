@@ -3,7 +3,6 @@ package com.edu.nuc.service;
 import com.edu.nuc.entity.ShoppingCart;
 import com.edu.nuc.entity.User;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
