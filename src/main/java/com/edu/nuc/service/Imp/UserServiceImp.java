@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 /**
  * Created by macbookair on 2018/4/9.
  */
@@ -37,5 +39,15 @@ public class UserServiceImp implements UserService{
 
         int i=userJPA.updatePasswordbyname(user.getUsername(),user.getPassword());
         return i;
+    }
+
+    @Override
+    public boolean topUpRecharge(Integer uid, BigDecimal money) {
+        User one = userJPA.getOne(uid);
+        BigDecimal balance = one.getBalance();
+        BigDecimal add = balance.add(money);
+        one.setBalance(add);
+        userJPA.save(one);
+        return true;
     }
 }

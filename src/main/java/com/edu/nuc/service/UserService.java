@@ -5,6 +5,7 @@ import com.edu.nuc.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -19,5 +20,13 @@ public interface UserService {
     User regist(User user);
 
     int update(User user);
+
+    /**
+     * 充值
+     * @param uid 用户id
+     * @param money 金额
+     * @return 结果
+     */
+    boolean topUpRecharge(Integer uid , BigDecimal money);
 
 }
