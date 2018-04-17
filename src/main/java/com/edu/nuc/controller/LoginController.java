@@ -28,6 +28,12 @@ public class LoginController {
     }
 
 
+    /**
+     * 登陆
+     * @param user
+     * @param session
+     * @return
+     */
     @RequestMapping("/doLogin")
     public ModelAndView login(User user, HttpSession session){
 

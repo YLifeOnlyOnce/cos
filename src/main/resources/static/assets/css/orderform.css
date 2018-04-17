@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: white;
+    color: white;
+    text-decoration-color: white;
+}
+.content{
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.first-tr{
+    background-color: darkorange;
+    color: white;
+
+}

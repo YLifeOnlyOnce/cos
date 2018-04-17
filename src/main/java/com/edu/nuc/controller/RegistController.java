@@ -22,6 +22,11 @@ public class RegistController {
     UserService userService;
     Logger log = LoggerFactory.getLogger(RegistController.class);
 
+    /**
+     * 注册用户
+     * @param user
+     * @return
+     */
     @RequestMapping("/regist")
     public ModelAndView regist(User user) {
         user.setPower(user.userpower);

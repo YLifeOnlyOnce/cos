@@ -31,7 +31,16 @@ public class Product {
 //    是否打折状态
     @Column
     private Integer discountstatus;
+    @Column
+    private String descriptio;
 
+    public String getDescriptio() {
+        return descriptio;
+    }
+
+    public void setDescriptio(String descriptio) {
+        this.descriptio = descriptio;
+    }
 
     /**
      * 打折 ： 0

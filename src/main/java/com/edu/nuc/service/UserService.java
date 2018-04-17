@@ -18,4 +18,6 @@ public interface UserService {
 
     User regist(User user);
 
+    int update(User user);
+
 }

@@ -1,0 +1,35 @@
+.shopimg{
+
+    line-height: 100%;
+    height: 140px;
+    width: 140px;
+    float: left;
+    margin-left: 8px;
+    margin-top: 3px;
+
+}
+.carttitle{
+    width: 60%;
+    height: 150px;
+    line-height: 150px;
+    float: left;
+}
+
+.foods{
+    font-size: 17px;
+    text-align: center;
+}
+.show{
+    height: 100%;
+}
+
+.deleteicon{
+    width: 20px;
+    height: 20px;
+    background-color: #f8f8f8;
+}
+
+.deleteicon:hover{
+    background-color: #be2924;
+    cursor: pointer;
+}

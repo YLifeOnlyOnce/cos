@@ -28,6 +28,10 @@ public class ProductController  {
     MyWebAppConfigurer webAppConfigurer;
     Logger log = LoggerFactory.getLogger(ProductController.class);
 
+    /**
+     * 查询所有商品
+     * @return
+     */
     @RequestMapping("/findallproduct")
     public ModelAndView findAllProduct(){
         ModelAndView modelAndView = new ModelAndView("productview");
@@ -37,6 +41,12 @@ public class ProductController  {
         return modelAndView;
     }
 
+    /**
+     * 添加商品
+     * @param product
+     * @param file
+     * @return
+     */
     @RequestMapping("/putproduct")
     public ModelAndView putProduct(Product product,MultipartFile file){
         ModelAndView modelAndView = new ModelAndView("productview");
