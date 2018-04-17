@@ -1,7 +1,5 @@
 package com.edu.nuc.entity;
 
-import org.springframework.beans.factory.config.PlaceholderConfigurerSupport;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,8 +19,8 @@ public class OrderForm {
      * 订单商品
      */
     @OneToMany
-    @JoinColumn(name = "opid", referencedColumnName = "opid")
-    private List<OrderFormProduct> orderFormProduct;
+    @JoinColumn(name = "oid")
+    private List<OrderFormProduct> orderFormProducts;
     /**
      * 订单所属用户
      */
@@ -81,12 +79,12 @@ public class OrderForm {
         this.oid = oid;
     }
 
-    public List<OrderFormProduct> getOrderFormProduct() {
-        return orderFormProduct;
+    public List<OrderFormProduct> getOrderFormProducts() {
+        return orderFormProducts;
     }
 
-    public void setOrderFormProduct(List<OrderFormProduct> orderFormProduct) {
-        this.orderFormProduct = orderFormProduct;
+    public void setOrderFormProducts(List<OrderFormProduct> orderFormProducts) {
+        this.orderFormProducts = orderFormProducts;
     }
 
     public Integer getState() {

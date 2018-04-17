@@ -27,7 +27,7 @@ public class Product {
     private Integer salesvolume;
 //    折扣价
     @Column
-    private Integer discountprice;
+    private BigDecimal discountprice;
 //    是否打折状态
     @Column
     private Integer discountstatus;
@@ -54,12 +54,16 @@ public class Product {
      * 不打折 ： 1
      */
     public static final Integer notdiscount = 1;
+    /**
+     *下架
+     */
+    public static final Integer soldOut = 2;
 
-    public Integer getDiscountprice() {
+    public BigDecimal getDiscountprice() {
         return discountprice;
     }
 
-    public void setDiscountprice(Integer discountprice) {
+    public void setDiscountprice(BigDecimal discountprice) {
         this.discountprice = discountprice;
     }
 

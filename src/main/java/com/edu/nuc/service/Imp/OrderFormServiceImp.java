@@ -23,7 +23,7 @@ public class OrderFormServiceImp implements OrderFormService {
     public boolean insertOrder(OrderForm orderForm) {
         orderForm.setState(OrderForm.place);
         orderForm.setPlaceTime(new Date());
-        List<OrderFormProduct> orderFormProducts = orderForm.getOrderFormProduct();
+        List<OrderFormProduct> orderFormProducts = orderForm.getOrderFormProducts();
         BigDecimal zj = new BigDecimal(0);
         for (OrderFormProduct orderFormProduct : orderFormProducts) {
             //设置商品价格

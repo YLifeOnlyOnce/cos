@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public List<Product> findAll() {
-        return productJPA.findAll();
+        return productJPA.findByDiscountstatusIsNot(2);
 
     }
 
@@ -28,6 +29,43 @@ public class ProductServiceImp implements ProductService {
     public void putProduct(Product product) {
         Product save = productJPA.save(product);
     }
+
+    @Override
+    public boolean setPromotion(Integer pid, double price) {
+        Product one = productJPA.getOne(pid);
+        int discountstatus = one.getDiscountstatus();
+        if (discountstatus != Product.notdiscount) {
+            //订单状态不为不促销
+            return false;
+        }
+        one.setDiscountprice(new BigDecimal(price));
+        one.setDiscountstatus(Product.discount);
+        productJPA.save(one);
+        return true;
+    }
+
+    @Override
+    public boolean cancelPromotion(Integer pid) {
+        Product one = productJPA.getOne(pid);
+        int discountstatus = one.getDiscountstatus();
+        if (discountstatus != Product.discount) {
+            //订单状态不为促销
+            return false;
+        }
+        one.setDiscountprice(new BigDecimal(0));
+        one.setDiscountstatus(Product.notdiscount);
+        productJPA.save(one);
+        return true;
+    }
+
+    @Override
+    public boolean soldOutProduct(Integer pid) {
+        Product one = productJPA.getOne(pid);
+        one.setDiscountstatus(Product.soldOut);
+        productJPA.save(one);
+        return true;
+    }
+
 
 
 }

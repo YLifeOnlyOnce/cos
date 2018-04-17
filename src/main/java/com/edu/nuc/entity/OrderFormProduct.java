@@ -1,5 +1,7 @@
 package com.edu.nuc.entity;
 
+import org.hibernate.mapping.ToOne;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -13,7 +15,7 @@ public class OrderFormProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer opid;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "pid",referencedColumnName = "pid")
     private Product product;
     /**
