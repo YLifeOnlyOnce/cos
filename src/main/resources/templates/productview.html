@@ -173,13 +173,14 @@
                                     </li>
                                     <li><span class="am-text-success" th:text="'折扣价:'+${product.discountprice}+'¥'" th:if="${product.discountstatus} eq '0'"> 235+</span></li>
                                     <li><span class="am-icon-github font-green"> 销售量:600+</span></li>
+
                                 </ul>
                             </div>
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs tpl-edit-content-btn">
 
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span
-                                            class="am-icon-plus"></span> 餐车
+                                    <button type="button" th:class=" am-btn am-btn-default am-btn-success" th:onclick="'javascript:addOdd(\''+${product.pid}+'\')'"><span
+                                            class="am-icon-plus"></span>餐车
                                     </button>
                                     <button type="button" class="am-btn am-btn-default am-btn-warning" style="float: right"><span
                                             class="am-icon-archive"></span> 购买
@@ -202,9 +203,22 @@
 <script th:src="@{~/assets/js/amazeui.min.js}"></script>
 <script th:src="@{~/assets/js/app.js}"></script>
 <script th:src="@{~/assets/js/page.js}"></script>
-<script>
-    var obj = ${productlist}
-    paging(document.getElementsByClassName("page"),)
+<script th:inline="javascript">
+    function addOdd(pid) {
+            console.log(pid);
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:8080/user/insertshopcart?pid="+pid,
+                "method": "POST"
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(pid);
+                alert("已添加至购物车");
+            });
+
+    }
 </script>
 </body>
 </html>

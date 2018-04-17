@@ -22,7 +22,7 @@ public class Product {
 
     @Column
     private BigDecimal price;
-//    售价
+//    量
     @Column
     private Integer salesvolume;
 //    折扣价
