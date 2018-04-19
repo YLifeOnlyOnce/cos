@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -10,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" th:href="@{~/assets/i/favicon.png}">
+    <link rel="apple-touch-icon-precomposed" th:href="@{~/assets/i/app-icon72x72@2x.png}">
     <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
-    <link rel="stylesheet" href="assets/css/admin.css">
-    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" th:href="@{~/assets/css/amazeui.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/assets/css/admin.css}">
+    <link rel="stylesheet" th:href="@{~/assets/css/app.css}">
 </head>
 
 <body data-type="generalComponents">
@@ -165,166 +165,84 @@
 <div class="tpl-page-container tpl-page-header-fixed">
 
 
-
-
-
-<div STYLE="padding: 50px">
+    <div STYLE="padding: 50px">
 
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="caption font-green bold">
-                    <span class="am-icon-code"></span> 列表
+                    <span class="am-icon-code"></span> 订单
                 </div>
 
 
             </div>
             <div class="tpl-block">
                 <div class="am-g">
-                    <div class="am-u-sm-12 am-u-md-6">
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <button type="button" class="am-btn am-btn-default am-btn-success"><span
-                                        class="am-icon-plus"></span> 新增
-                                </button>
-                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span
-                                        class="am-icon-save"></span> 保存
-                                </button>
-                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span
-                                        class="am-icon-archive"></span> 审核
-                                </button>
-                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span
-                                        class="am-icon-trash-o"></span> 删除
-                                </button>
-                            </div>
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <form class="am-form">
+                                <table class="am-table am-table-striped am-table-hover table-main">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-title">商品名称</th>
+                                        <th class="table-type">数量</th>
+                                        <th class="table-type">总价</th>
+                                        <th class="table-type">状态</th>
+                                        <th class="table-type">收货地址</th>
+                                        <th class="table-author am-hide-sm-only">下单时间</th>
+                                        <th class="table-date am-hide-sm-only">发货时间</th>
+                                        <th class="table-set">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr th:each="order,orderStat : ${orderForms}">
+                                        <td>
+                                            <p th:each="product  : ${order.orderFormProducts}"
+                                               th:text="${product.product.pname}">红烧棉儿</p>
+                                        </td>
+                                        <td>
+                                            <p th:each="product  : ${order.orderFormProducts}"
+                                               th:text="${product.conut}">*1</p>
+                                        </td>
+                                        <td th:text="${order.totalPrices}">23.2￥</td>
+                                        <td th:if="${order.state} eq 1">已发货</td>
+                                        <td th:if="${order.state} eq 0">下单成功</td>
+                                        <td th:if="${order.state} eq 2">已收货</td>
+                                        <td th:text="${order.address}"></td>
+                                        <td class="am-hide-sm-only" th:text="${order.placeTime}">2014年9月4日 7:28:47</td>
+                                        <td class="am-hide-sm-only" th:text="${order.senfOfTime}">2014年9月4日 7:28:47</td>
+                                        <td>
+                                            <div class="am-btn-toolbar">
+                                                <div class="am-btn-group am-btn-group-xs">
+                                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                                            th:if="${order.state} eq 1"><span
+                                                            class="am-icon-pencil-square-o"></span> 确认收货
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <hr>
+
+                            </form>
                         </div>
+
                     </div>
-
-
-                <div class="am-g">
-                    <div class="am-u-sm-12">
-                        <form class="am-form">
-                            <table class="am-table am-table-striped am-table-hover table-main">
-                                <thead>
-                                <tr>
-                                    <th class="table-title">商品名称</th>
-                                    <th class="table-type">数量</th>
-                                    <th class="table-type">总价</th>
-                                    <th class="table-type">状态</th>
-                                    <th class="table-author am-hide-sm-only">下单时间</th>
-                                    <th class="table-date am-hide-sm-only">发货时间</th>
-                                    <th class="table-set">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><img style="padding: 10px" src="assets/img/43.jpg" height="100" width="100"/>
-                                        <!--<p>红烧棉儿</p>-->
-                                        <!--<p>米饭</p>-->
-                                    </td>
-                                    <td>
-                                        <p>*3</p>
-                                        <p>*6</p>
-                                    </td>
-                                    <td>23.2￥</td>
-                                    <td>已发货</td>
-                                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                                    <td>
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span
-                                                        class="am-icon-pencil-square-o"></span> 编辑
-                                                </button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span
-                                                        class="am-icon-copy"></span> 复制
-                                                </button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
-                                                    <span class="am-icon-trash-o"></span> 删除
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>红烧棉儿</p>
-                                        <p>米饭</p>
-                                    </td>
-                                    <td>
-                                        <p>*3</p>
-                                        <p>*6</p>
-                                    </td>
-                                    <td>23.2￥</td>
-                                    <td>已发货</td>
-                                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                                    <td>
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span
-                                                        class="am-icon-pencil-square-o"></span> 编辑
-                                                </button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span
-                                                        class="am-icon-copy"></span> 复制
-                                                </button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
-                                                    <span class="am-icon-trash-o"></span> 删除
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>红烧棉儿</p>
-                                        <p>米饭</p>
-                                    </td>
-                                    <td>
-                                        <p>*3</p>
-                                        <p>*6</p>
-                                    </td>
-                                    <td>23.2￥</td>
-                                    <td>已发货</td>
-                                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                                    <td>
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span
-                                                        class="am-icon-pencil-square-o"></span> 编辑
-                                                </button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span
-                                                        class="am-icon-copy"></span> 复制
-                                                </button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
-                                                    <span class="am-icon-trash-o"></span> 删除
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                            <hr>
-
-                        </form>
-                    </div>
-
                 </div>
+                <div class="tpl-alert"></div>
             </div>
-            <div class="tpl-alert"></div>
+
+
         </div>
-
-
     </div>
+
 </div>
-
-
-
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
+<script th:src="@{~/assets/js/jquery.min.js}"></script>
+<script th:src="@{~/assets/js/amazeui.min.js}"></script>
+<script th:src="@{~/assets/js/app.js}"></script>
 </body>
 
 </html>

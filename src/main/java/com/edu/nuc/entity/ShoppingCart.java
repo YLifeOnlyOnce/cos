@@ -16,15 +16,15 @@ public class ShoppingCart implements Serializable{
     /**
      * 购物车记录所属用户
      */
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "uid" , referencedColumnName = "uid")
     private User user;
     /**
      * 购物车中商品
      */
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "pid",referencedColumnName = "pid")
-    private Product products;
+    private Product product;
     /**
      * 商品数量
      */
@@ -47,12 +47,12 @@ public class ShoppingCart implements Serializable{
         this.user = user;
     }
 
-    public Product getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(Product products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getConut() {

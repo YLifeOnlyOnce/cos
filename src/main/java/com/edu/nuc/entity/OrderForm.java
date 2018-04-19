@@ -18,13 +18,13 @@ public class OrderForm {
     /**
      * 订单商品
      */
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinColumn(name = "oid")
     private List<OrderFormProduct> orderFormProducts;
     /**
      * 订单所属用户
      */
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinColumn(name = "uid",referencedColumnName = "uid")
     private User user;
     /**

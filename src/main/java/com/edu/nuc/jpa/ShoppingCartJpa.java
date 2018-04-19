@@ -12,6 +12,6 @@ import java.util.List;
 public interface ShoppingCartJpa extends BaseJPA<ShoppingCart,Integer> {
     List<ShoppingCart> findByUser(User user);
 
-    ShoppingCart findByUserAndProducts(User user, Product product);
+    ShoppingCart findByUserAndProduct(User user, Product product);
 
 }

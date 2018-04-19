@@ -15,7 +15,7 @@ public class OrderFormProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer opid;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "pid",referencedColumnName = "pid")
     private Product product;
     /**

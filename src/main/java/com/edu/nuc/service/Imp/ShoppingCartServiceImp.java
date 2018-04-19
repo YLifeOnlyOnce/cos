@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -28,7 +27,7 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
     public ShoppingCart insert(User user, Integer pid, Integer conut) {
         Product product = new Product();
         product.setPid(pid);
-        ShoppingCart byUserAndProducts = shoppingCartJpa.findByUserAndProducts(user, product);
+        ShoppingCart byUserAndProducts = shoppingCartJpa.findByUserAndProduct(user, product);
         if (byUserAndProducts != null) {
             byUserAndProducts.setConut(byUserAndProducts.getConut() + 1);
             return shoppingCartJpa.save(byUserAndProducts);
@@ -36,7 +35,7 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setConut(conut);
         shoppingCart.setUser(user);
-        shoppingCart.setProducts(product);
+        shoppingCart.setProduct(product);
         return shoppingCartJpa.save(shoppingCart);
     }
 

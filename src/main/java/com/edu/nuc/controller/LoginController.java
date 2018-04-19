@@ -44,8 +44,8 @@ public class LoginController {
             modelAndView.setViewName("login");
             modelAndView.addObject("loginerror","用户名或密码错误");
         }else {
-
-            session.setAttribute("user",user);
+            log.info("登录成功");
+            session.setAttribute("user",user1);
         }
 
         return modelAndView;

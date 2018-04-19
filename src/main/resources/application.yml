@@ -30,6 +30,7 @@ spring:
     show_sql: true
     hibernate:
       ddl-auto: update
+    open-in-view: true
 #    properties:
 #      hibernate:
 #        format_sql: true
