@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by macbookair on 2018/4/10.
@@ -23,6 +24,12 @@ public class ProductServiceImp implements ProductService {
     public List<Product> findAll() {
         return productJPA.findByDiscountstatusIsNot(2);
 
+    }
+
+    @Override
+    public Product findPByPid(Integer pid) {
+        Product product = productJPA.getOne(pid);
+        return product;
     }
 
     @Override

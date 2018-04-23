@@ -24,7 +24,7 @@ public class Product {
     private BigDecimal price;
 //    量
     @Column
-    private Integer salesvolume;
+    private Integer salesnumb;
 //    折扣价
     @Column
     private BigDecimal discountprice;
@@ -107,19 +107,19 @@ public class Product {
         this.price = price;
     }
 
-    public Integer getSalesvolume() {
-        return salesvolume;
+    public Integer getSalesnumb() {
+        return salesnumb;
     }
 
-    public void setSalesvolume(Integer salesvolume) {
-        this.salesvolume = salesvolume;
+    public void setSalesnumb(Integer salesnumb) {
+        this.salesnumb = salesnumb;
     }
 
-    public Product(String pname, String pimg, BigDecimal price, Integer salesvolume) {
+    public Product(String pname, String pimg, BigDecimal price, Integer salesnumb) {
         this.pname = pname;
         this.pimg = pimg;
         this.price = price;
-        this.salesvolume = salesvolume;
+        this.salesnumb = salesnumb;
     }
 
     public Product() {

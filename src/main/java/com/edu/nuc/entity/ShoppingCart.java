@@ -16,20 +16,20 @@ public class ShoppingCart implements Serializable{
     /**
      * 购物车记录所属用户
      */
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "uid" , referencedColumnName = "uid")
     private User user;
     /**
      * 购物车中商品
      */
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "pid",referencedColumnName = "pid")
     private Product product;
     /**
      * 商品数量
      */
     @Column
-    private Integer conut;
+    private Integer count;
 
     public Integer getScid() {
         return scid;
@@ -55,11 +55,11 @@ public class ShoppingCart implements Serializable{
         this.product = product;
     }
 
-    public Integer getConut() {
-        return conut;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setConut(Integer conut) {
-        this.conut = conut;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

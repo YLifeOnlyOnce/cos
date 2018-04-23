@@ -48,7 +48,7 @@ public class ShoppingCartServiceImpTest {
         assertNotNull(shoppingCart);
         List<ShoppingCart> byUid = shoppingCartService.findByUid(user.getUid());
         assertNotNull(byUid);
-        boolean b = shoppingCartService.alterConut(shoppingCart.getScid(), 2);
+        boolean b = shoppingCartService.altercount(shoppingCart.getScid(), 2);
         assertTrue(b);
         boolean del = shoppingCartService.del(shoppingCart.getScid());
         assertTrue(del);

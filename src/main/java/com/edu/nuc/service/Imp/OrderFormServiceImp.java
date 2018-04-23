@@ -37,7 +37,7 @@ public class OrderFormServiceImp implements OrderFormService {
             Product one = productJPA.getOne(pid);
             orderFormProduct.setPrice(one.getPrice());
             //计算总价
-            zj = zj.add(one.getPrice().multiply(new BigDecimal(orderFormProduct.getConut())));
+            zj = zj.add(one.getPrice().multiply(new BigDecimal(orderFormProduct.getcount())));
         }
         orderForm.setTotalPrices(zj);
         User user = orderForm.getUser();

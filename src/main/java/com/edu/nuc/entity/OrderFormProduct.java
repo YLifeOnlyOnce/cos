@@ -15,14 +15,14 @@ public class OrderFormProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer opid;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "pid",referencedColumnName = "pid")
     private Product product;
     /**
      * 商品数量
      */
     @Column
-    private int conut;
+    private int count;
     /**
      * 购买价格
      */
@@ -45,12 +45,12 @@ public class OrderFormProduct {
         this.product = product;
     }
 
-    public int getConut() {
-        return conut;
+    public int getcount() {
+        return count;
     }
 
-    public void setConut(int conut) {
-        this.conut = conut;
+    public void setcount(int count) {
+        this.count = count;
     }
 
     public BigDecimal getPrice() {

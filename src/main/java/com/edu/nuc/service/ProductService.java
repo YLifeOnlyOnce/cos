@@ -11,7 +11,14 @@ import java.util.Map;
 public interface ProductService {
 
     List<Product> findAll();
+
+    /**
+     * 上架商品
+     * @param product
+     */
     void putProduct(Product product);
+
+    Product findPByPid(Integer pid);
 
     /**
      * 设置促销商品

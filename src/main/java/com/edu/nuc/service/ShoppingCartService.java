@@ -20,10 +20,10 @@ public interface ShoppingCartService {
      * 添加购物车记录
      * @param user 当前登录用户从session获得
      * @param pid 商品id
-     * @param conut 商品数量
+     * @param count 商品数量
      * @return 执行结果
      */
-    ShoppingCart insert(User user, Integer pid , Integer conut);
+    ShoppingCart insert(User user, Integer pid , Integer count);
 
 
     /**
@@ -36,8 +36,8 @@ public interface ShoppingCartService {
     /**
      * 修改购物车商品数量
      * @param scid 购物车商品id
-     * @param newConut 新的商品数量
+     * @param newcount 新的商品数量
      * @return 执行结果
      */
-    boolean alterConut(Integer scid , Integer newConut);
+    boolean altercount(Integer scid , Integer newcount);
 }

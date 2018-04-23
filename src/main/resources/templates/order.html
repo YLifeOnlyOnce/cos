@@ -202,7 +202,7 @@
                                         </td>
                                         <td>
                                             <p th:each="product  : ${order.orderFormProducts}"
-                                               th:text="${product.conut}">*1</p>
+                                               th:text="${product.count}">*1</p>
                                         </td>
                                         <td th:text="${order.totalPrices}">23.2￥</td>
                                         <td th:if="${order.state} eq 1">已发货</td>

@@ -25,7 +25,6 @@
             </ol>
         </div>
         <div class="table-responsive cart_info">
-
             <table class="table" style="margin-bottom: 0px">
                 <thead>
                 <tr class="cart_menu">
@@ -34,17 +33,18 @@
                     <td class="total">现价</td>
                     <td class="total">数量</td>
                     <td class="total">总价</td>
-                    <td></td>
+                    <td><a class="cart_quantity_delete" href="#"> <i
+                            class="fa fa-plus-circle fa-lg">新增 </i></a></td>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr class="foods" >
-                        <td><div class="show"><img class="shopimg" src="/assets/img/500022.jpg"><div class="carttitle">中华龙井田园套餐</div></div></td>
+                        <tr class="foods" th:each="sc: ${shopcart}" th:id="${sc.scid}">
+                        <td><div class="show"><img class="shopimg" th:src="@{~/__${sc.product.pimg}__}"><div class="carttitle" th:text="${sc.product.pname}">中华龙井田园套餐</div></div></td>
 
-                        <td>123.5¥</td>
-                        <td>1234¥</td>
-                        <td>2</td>
-                        <td>11111</td>
+                        <td th:text="${sc.product.price}">123.5¥</td>
+                        <td th:text="${sc.product.discountprice}" th:class="${sc.scid}+'dcp'">1234¥</td>
+                        <td style="text-align: center"><div class="del" th:onclick="'javascript:del(\''+${sc.scid}+'\')'">-</div> <span th:class="${sc.scid}" style="float: left" th:text="${sc.count}">2</span> <div class="add" th:onclick="'javascript:add(\''+${sc.scid}+'\')'">+</div></td>
+                        <td th:class="${sc.scid}+sp" >11111</td>
                         <td><a><img class="deleteicon"  src="/assets/img/close-2.png"></a></td>
                     </tr>
                 </tbody>
@@ -58,17 +58,17 @@
                 <div class="col-sm-6">
                     <div class="total_area">
                         <ul>
-                            <li>总数量 <span>
+                            <li>总数量 <span th:text="${sumcount}" class="sumcount">
 										<%
 											out.println(totalNum);
 										%>
 								</span></li>
-                            <li>总&nbsp;&nbsp;&nbsp;&nbsp;价 <span>
+                            <li>总&nbsp;&nbsp;&nbsp;&nbsp;价 <span th:text="${sum}" class="sum">
 										<%
 											out.print("￥：");
 											out.println(totalPrice);
 										%>
-								</span></li>
+								</span>¥</li>
                             <span><a class="btn btn-default check_out"
                                      href="checkout.jsp">去买单</a></span>
                         </ul>
@@ -82,12 +82,6 @@
 </body>
 
 <script th:src="@{~/assets/js/jquery.min.js}"></script>
+<script th:src="@{~/assets/js/shopcart.js}"></script>
 
-<SCRIPT>
-    $(function () {
-        $(".deleteicon").onmouseup(function () {
-            $(".deleteicon").attr("src","/assets/img/close-3.png");
-        })
-    })
-</SCRIPT>
 </html>
