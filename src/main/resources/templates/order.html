@@ -188,7 +188,7 @@
                                         <th class="table-type">总价</th>
                                         <th class="table-type">状态</th>
                                         <th class="table-type">收货地址</th>
-                                        <th class="table-author am-hide-sm-only">下单时间</th>
+                                        <th class="table-date am-hide-sm-only">下单时间</th>
                                         <th class="table-date am-hide-sm-only">发货时间</th>
                                         <th class="table-set">操作</th>
                                     </tr>
@@ -215,8 +215,12 @@
                                             <div class="am-btn-toolbar">
                                                 <div class="am-btn-group am-btn-group-xs">
                                                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
-                                                            th:if="${order.state} eq 1"><span
+                                                            th:if="(${order.state} eq 1)and(${session.user.power} eq 1)" th:onclick="'javascript:qr(\''+${order.oid}+'\')'"><span
                                                             class="am-icon-pencil-square-o"></span> 确认收货
+                                                    </button>
+                                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                                            th:if="(${order.state} eq 1)and(${session.user.power} eq 0)" th:onclick="'javascript:fh(\''+${order.oid}+'\')'"><span
+                                                            class="am-icon-pencil-square-o"></span> 发货
                                                     </button>
                                                 </div>
                                             </div>
@@ -243,6 +247,32 @@
 <script th:src="@{~/assets/js/jquery.min.js}"></script>
 <script th:src="@{~/assets/js/amazeui.min.js}"></script>
 <script th:src="@{~/assets/js/app.js}"></script>
+<script >
+function qr(oid) {
+    var settings1 = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8080/user/qrorder?oid=" + oid,
+        "method": "POST"
+    };
+
+    $.ajax(settings1).done(function (response) {
+        location.reload();
+    });
+}
+function fh(oid) {
+    var settings1 = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8080/user/qrorder?oid=" + oid,
+        "method": "POST"
+    };
+
+    $.ajax(settings1).done(function (response) {
+        location.reload();
+    });
+}
+</script>
 </body>
 
 </html>

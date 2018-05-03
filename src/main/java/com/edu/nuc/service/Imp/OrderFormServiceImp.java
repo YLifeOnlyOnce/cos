@@ -5,6 +5,7 @@ import com.edu.nuc.entity.OrderFormProduct;
 import com.edu.nuc.entity.Product;
 import com.edu.nuc.entity.User;
 import com.edu.nuc.jpa.OrderFormJpa;
+import com.edu.nuc.jpa.OrderFormProductJpa;
 import com.edu.nuc.jpa.ProductJPA;
 import com.edu.nuc.jpa.UserJPA;
 import com.edu.nuc.service.OrderFormService;
@@ -24,6 +25,8 @@ public class OrderFormServiceImp implements OrderFormService {
     @Autowired
     ProductJPA productJPA;
     @Autowired
+    OrderFormProductJpa orderFormProductJpa;
+    @Autowired
     UserJPA userJPA;
     @Override
     public boolean insertOrder(OrderForm orderForm) {
@@ -37,7 +40,8 @@ public class OrderFormServiceImp implements OrderFormService {
             Product one = productJPA.getOne(pid);
             orderFormProduct.setPrice(one.getPrice());
             //计算总价
-            zj = zj.add(one.getPrice().multiply(new BigDecimal(orderFormProduct.getcount())));
+            zj = zj.add(one.getPrice().multiply(new BigDecimal(orderFormProduct.getCount())));
+            orderFormProductJpa.save(orderFormProduct);
         }
         orderForm.setTotalPrices(zj);
         User user = orderForm.getUser();

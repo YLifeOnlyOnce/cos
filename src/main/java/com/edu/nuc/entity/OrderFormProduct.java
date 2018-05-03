@@ -45,19 +45,19 @@ public class OrderFormProduct {
         this.product = product;
     }
 
-    public int getcount() {
-        return count;
-    }
-
-    public void setcount(int count) {
-        this.count = count;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

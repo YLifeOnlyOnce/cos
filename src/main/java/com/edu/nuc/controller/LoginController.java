@@ -27,6 +27,12 @@ public class LoginController {
         return page;
     }
 
+    @RequestMapping("/")
+    public String index(){
+        log.info("访问首页");
+        return "login";
+    }
+
 
     /**
      * 登陆
@@ -46,6 +52,7 @@ public class LoginController {
         }else {
             log.info("登录成功");
             session.setAttribute("user",user1);
+            return new ModelAndView("redirect:/user/findallproduct");
         }
 
         return modelAndView;
