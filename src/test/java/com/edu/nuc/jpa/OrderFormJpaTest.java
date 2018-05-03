@@ -29,4 +29,11 @@ public class OrderFormJpaTest {
         List<OrderForm> orderForms = orderFormJpa.selectByUserOrderByPlaceTimeDesc(6);
         System.out.println(orderForms);
     }
+
+    @Test
+    public void findOrderFormOrderByState() {
+        List<OrderForm> orderFormOrderByState = orderFormJpa.findAllOrderByState();
+        System.out.println(orderFormOrderByState);
+
+    }
 }

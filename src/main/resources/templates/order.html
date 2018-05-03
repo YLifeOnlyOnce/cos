@@ -219,7 +219,7 @@
                                                             class="am-icon-pencil-square-o"></span> 确认收货
                                                     </button>
                                                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
-                                                            th:if="(${order.state} eq 1)and(${session.user.power} eq 0)" th:onclick="'javascript:fh(\''+${order.oid}+'\')'"><span
+                                                            th:if="(${order.state} eq 0)and(${session.user.power} eq 0)" th:onclick="'javascript:fh(\''+${order.oid}+'\')'"><span
                                                             class="am-icon-pencil-square-o"></span> 发货
                                                     </button>
                                                 </div>
@@ -264,7 +264,7 @@ function fh(oid) {
     var settings1 = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:8080/user/qrorder?oid=" + oid,
+        "url": "http://localhost:8080/user/fhorder?oid=" + oid,
         "method": "POST"
     };
 

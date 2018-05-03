@@ -44,4 +44,10 @@ public interface OrderFormService {
      * @return 订单数据
      */
     List<OrderForm> selectOrderByState(int state);
+
+    /**
+     * 查询所有订单
+     * @return 订单数据
+     */
+    List<OrderForm> selectAllOrder();
 }

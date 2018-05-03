@@ -94,4 +94,9 @@ public class OrderFormServiceImp implements OrderFormService {
     public List<OrderForm> selectOrderByState(int state) {
         return orderFormJpa.findByStateOrderByPlaceTimeDesc(state);
     }
+
+    @Override
+    public List<OrderForm> selectAllOrder() {
+        return orderFormJpa.findAllOrderByState();
+    }
 }

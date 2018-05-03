@@ -38,6 +38,24 @@ public class OrderFormController {
         return order;
     }
 
+    @RequestMapping("/adminOrder")
+    public ModelAndView adminOrder(HttpSession session) {
+        ModelAndView order = new ModelAndView("order");
+        User user = (User) session.getAttribute("user");
+        log.info("管理员查看订单，身份"+user.getPower());
+        log.info("session取出的user" + user.getUid());
+        List<OrderForm> orderForms;
+        if (!user.getPower().equals(User.adminpower)) {
+            log.info("身份错误");
+            orderForms = orderFormService.selectOrderByUser(user);
+        } else {
+            log.info("身份正确");
+            orderForms = orderFormService.selectAllOrder();
+        }
+        order.addObject("orderForms", orderForms);
+        return order;
+    }
+
     /**
      * 首页下单
      *
@@ -74,4 +92,18 @@ public class OrderFormController {
         return map;
     }
 
+    /**
+     * 发货
+     * @return
+     */
+    @RequestMapping("/fhorder")
+    @ResponseBody
+    public Map<String,String> fhorder(Integer oid) {
+        log.info("发货："+oid);
+        boolean b = orderFormService.setStateSenfOf(oid);
+        log.info("发货结果"+b);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("state", "1");
+        return map;
+    }
 }
