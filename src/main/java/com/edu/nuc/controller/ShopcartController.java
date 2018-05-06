@@ -116,8 +116,8 @@ public class ShopcartController {
     @RequestMapping("/delshopcartproduct")
     @ResponseBody
     public void deleteShopcartProduct(Integer scid){
+        log.info("delete购物车中的产品"+scid);
         shoppingCartService.del(scid);
-        log.info("delete购物车中的产品");
     }
 
 }

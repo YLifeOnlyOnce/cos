@@ -114,7 +114,7 @@ function delAll(scid){
             "Postman-Token": "2b065643-b094-4f46-af8d-707e61baeea2"
         },
         "data": {
-            "scid": scid;
+            "scid": scid
         }
     };
 
