@@ -45,6 +45,8 @@ public class OrderFormServiceImp implements OrderFormService {
         }
         orderForm.setTotalPrices(zj);
         User user = orderForm.getUser();
+        Integer uid = user.getUid();
+        user = userJPA.getOne(uid);
         BigDecimal balance = user.getBalance();
         double v = balance.doubleValue();
         double v1 = zj.doubleValue();

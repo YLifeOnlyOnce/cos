@@ -34,7 +34,7 @@ public class ProductController  {
      */
     @RequestMapping("/findallproduct")
     public ModelAndView findAllProduct(){
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("productview");
         List <Product> productList = productService.findAll();
         modelAndView.addObject("productlist",productList);
         log.info("查到所有商品");
