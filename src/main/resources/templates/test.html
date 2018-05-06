@@ -1,18 +1,25 @@
-<!DOCTYPE html>
-
-<html lang="en">
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>test</title>
+    <title>Document</title>
 </head>
 <body>
-    <span th:text="${user}">无显示</span>
-    <span class="" style="color: red" th:if="${user.username}">userinfo</span>
-    <table>
-        <tr th:each="pro,${productlist}">
-            <td th:text="${pro.pname}">wuxianshi</td>
-        </tr>
-    </table>
+<button onclick="a()"></button>
 </body>
+<script th:src="@{~/assets/js/jquery.min.js}"></script>
+<script th:src="@{~/assets/js/amazeui.min.js}"></script>
+<script>
+    function a() {
+        var a = {};
+        var orderFormProducts = [];
+        orderFormProducts.push({"count":"1","product":{"pid":"7"}});
+        orderFormProducts.push({"count":"2","product":{"pid":"8"}});
+        a.orderFormProducts=orderFormProducts;
+        a.address="asdasdasd";
+        var s = JSON.stringify(a);
+        alert(s);
+    }
+
+</script>
 </html>
