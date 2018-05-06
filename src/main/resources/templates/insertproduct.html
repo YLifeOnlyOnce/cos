@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <link rel="stylesheet" th:href="@{~/assets/css/amazeui.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/assets/css/admin.css}"/>
+    <link rel="stylesheet" th:href="@{~/assets/css/app.css}"/>
+    <link th:href="@{~/assets/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{~/assets/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{~/assets/css/prettyPhoto.css}" rel="stylesheet">
+    <link th:href="@{~/assets/css/price-range.css}" rel="stylesheet">
+    <link th:href="@{~/assets/css/animate.css}" rel="stylesheet">
+    <link th:href="@{~/assets/css/main.css}" rel="stylesheet">
+    <link th:href="@{~/assets/css/responsive.css}" rel="stylesheet">
+</head>
+
+<body style="height: 1500px;background-color: white">
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Admin</a></li>
+                <li class="active">菜品管理</li>
+                <li class="active">菜品添加</li>
+            </ol>
+        </div>
+
+        <div class="review-payment">
+            <h2>菜品管理</h2>
+        </div>
+        <div class="step-one">
+            <h2 class="heading">添加菜品信息</h2>
+        </div>
+        <!--<div class="register-req">-->
+            <!--<p>请注意，修改之后将无法恢复原信息</p>-->
+        <!--</div>-->
+        <div class="table-responsive cart_info">
+
+
+            <div class="shopper-informations">
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-5">
+                        <div class="shopper-info">
+                            <br>
+                            <p>菜品信息</p>
+                            <form action="/user/putproduct" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="pname">菜品名称</label>
+                                    <input type="text" class="form-control" id="pname" name="pname" placeholder="菜品名称">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">价格</label>
+                                    <input
+                                            type="text" class="form-control" id="price" name="price" placeholder="价格">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">描述</label>
+                                    <!--<textarea class="form-control" rows="3" placeholder="描述" id="description" name="description"></textarea>-->
+                                    <input type="text" class="form-control" id="description" name="description"
+                                        placeholder="描述" rows="3">
+                                </div>
+                                <div class="form-group">
+                                    <label >上传图片</label>
+                                    <input id="doc-form-file" type="file" class="form-control" name="file" multiple="multiple"
+                                           onchange="changImg(event)" required="required">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" width="80"
+                                        padding="20">提交</button>
+                            </form>
+
+
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <div class="order-message">
+
+                            <br>
+                            <p>图片预览</p>
+                            <img id="myImg" th:src="@{~/assets/img/a1.png}" height="335" width="335"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+<script th:src="@{~/assets/js/jquery.min.js}"></script>
+<script th:src="@{~/assets/js/amazeui.min.js}"></script>
+<script th:src="@{~/assets/js/app.js}"></script>
+<script>
+    function changImg(e) {
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function (e) {
+                $("#myImg").attr("src", e.target.result);
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

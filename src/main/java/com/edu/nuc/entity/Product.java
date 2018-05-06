@@ -22,7 +22,7 @@ public class Product {
 
     @Column
     private BigDecimal price;
-//    量
+//    数量
     @Column
     private Integer salesnumb;
 //    折扣价
@@ -31,17 +31,20 @@ public class Product {
 //    是否打折状态
     @Column
     private Integer discountstatus;
+
+
+//    商品描述
     @Column
-    private String descriptio;
+    private String description;
 
-    public String getDescriptio() {
-        return descriptio;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptio(String descriptio) {
-        this.descriptio = descriptio;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
     /**
      * 打折 ： 0
      * 不打折： 1
