@@ -88,9 +88,45 @@ function add(scid) {
 }
 
 
-$(function () {
+function delAll(scid){
+    var sum = ($(".sum").html());
+    console.log("原来的总价："+sum);
+    var c = "." + scid + "dcp";
+    var discountprice = parseInt($(c).html());
+    console.log("当前产品的折扣价："+discountprice);
+    var newsum = Number(sum) - Number(discountprice);
+    var sumcount = parseInt($(".sumcount").html());
+    var newsumcount = sumcount - 1;
+    console.log(scid);
+    var b = "." + scid;
+    var pnumb = $(b).html();
+    console.log(pnumb);
+    console.log("新的总价为:" + newsum);
+    var newpnumb = pnumb - 1;
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8080/user/delshopcartproduct",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Cache-Control": "no-cache",
+            "Postman-Token": "2b065643-b094-4f46-af8d-707e61baeea2"
+        },
+        "data": {
+            "scid": scid;
+        }
+    };
 
-});
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        console.log(scid + "商品删除");
+        $(".sum").html(newsum);
+        $(".sumcount").html(newsumcount);
+        var a = "#" + scid;
+        $(a).hide();
+    });
+}
 
 // $(function () {
 //     $(".deleteicon").onmouseup(function () {

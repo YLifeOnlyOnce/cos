@@ -80,7 +80,7 @@ public class ShopcartController {
     public ModelAndView findAllByUid(HttpSession session) {
         User user = (User)session.getAttribute("user");
         List<ShoppingCart> shopingcart = shoppingCartService.findByUid(user.getUid());
-        ModelAndView modelAndView = new ModelAndView("shopcart");
+        ModelAndView modelAndView = new ModelAndView("shoppingcart");
         modelAndView.addObject("shopcart",shopingcart);
         log.info("findallbyuid查到该用户的购物车");
         Map<Integer,BigDecimal> sp = new LinkedHashMap <>();

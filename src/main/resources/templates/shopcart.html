@@ -42,10 +42,9 @@
                         <td><div class="show"><img class="shopimg" th:src="@{~/__${sc.product.pimg}__}"><div class="carttitle" th:text="${sc.product.pname}"><strong>中华龙井田园套餐</strong></div></div></td>
 
                         <td th:text="${sc.product.price}" style="color: #ff762e">123.5¥</td>
-                        <td th:text="${sc.product.discountprice}" th:class="${sc.scid}+'dcp'" style="color: #ff0619;">1234¥</td>
+                            <td th:text="${sc.product.discountprice}" th:class="${sc.scid}+'dcp'" style="color: #ff0619;">1234¥</td>
                         <td style="text-align: center"><div class="del" th:onclick="'javascript:del(\''+${sc.scid}+'\')'">-</div> <span th:class="${sc.scid}" style="float: left;color: #ff6033" th:text="${sc.count}">2</span> <div class="add" th:onclick="'javascript:add(\''+${sc.scid}+'\')'">+</div></td>
-                        <td th:class="${sc.scid}+sp" style="color: #ff954e;">11111</td>
-                        <td><a><img class="deleteicon"  src="/assets/img/close-2.png"></a></td>
+                        <td><a onclick=""><img class="deleteicon"  src="/assets/img/close-2.png"></a></td>
                     </tr>
                 </tbody>
             </table>
