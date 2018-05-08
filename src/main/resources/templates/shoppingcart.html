@@ -29,7 +29,7 @@
 
 <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
-        <a href="javascript:;" class="tpl-logo">
+        <a href="/user/findallproduct" class="tpl-logo">
             <img src="/assets/img/logo.png" alt="">
         </a>
     </div>
@@ -90,44 +90,52 @@
                 <div class="am-g">
                     <div class="am-g">
                         <div class="am-u-sm-12">
-                                <table class="am-table am-table-striped am-table-hover table-main">
-                                    <thead>
-                                    <tr>
-                                        <th class="table-image"></th>
-                                        <th class="table-title">商品名称</th>
-                                        <th class="table-type">原价</th>
-                                        <th class="table-type">现价</th>
-                                        <th class="table-type">数量</th>
-                                        <th class="table-set">操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                            <table id="product" class="am-table am-table-striped am-table-hover table-main">
+                                <thead>
+                                <tr>
+                                    <th class="table-image"></th>
+                                    <th class="table-title">商品名称</th>
+                                    <th class="table-type">原价</th>
+                                    <th class="table-type">现价</th>
+                                    <th class="table-type">数量</th>
+                                    <th class="table-set">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                                    <tr th:each="sc: ${shopcart}" th:id="${sc.scid}">
-                                        <td>
-                                            <div class="show"><img class="shopimg" th:src="@{~/__${sc.product.pimg}__}"></div>
-                                        </td>
-                                        <td>
-                                            <div th:text="${sc.product.pname}">pname</div>
-                                        </td>
-                                        <td th:text="${sc.product.price}">23.2￥</td>
-                                        <td th:text="${sc.product.discountprice}" th:class="${sc.scid}+'dcp'">23.3$</td>
-                                        <td><div class="del" th:onclick="'javascript:del(\''+${sc.scid}+'\')'"><strong>-</strong></div> <span th:class="${sc.scid}" style="float: left;color: #ff6033" th:text="${sc.count}">2</span> <div class="add" th:onclick="'javascript:add(\''+${sc.scid}+'\')'">+</div></td>
-                                        <td>
-                                            <div class="am-btn-toolbar">
-                                                <div class="am-btn-group am-btn-group-xs">
-                                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
-                                                           th:onclick="'javascript:delAll(\''+${sc.scid}+'\')'">
-                                                        <span class="am-icon-pencil-square-o"></span> 删除
-                                                    </button>
-                                                </div>
+                                <tr th:each="sc: ${shopcart}" th:id="${sc.scid}" th:attr="productid=${sc.product.pid}">
+                                    <td>
+                                        <div class="show"><img class="shopimg" th:src="@{~/__${sc.product.pimg}__}">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div th:text="${sc.product.pname}">pname</div>
+                                    </td>
+                                    <td th:text="${sc.product.price}">23.2￥</td>
+                                    <td th:text="${sc.product.discountprice}" th:class="${sc.scid}+'dcp'">23.3$</td>
+                                    <td>
+                                        <div class="del" th:onclick="'javascript:del(\''+${sc.scid}+'\')'">
+                                            <strong>-</strong></div>
+                                        <span th:class="${sc.scid}" style="float: left;color: #ff6033"
+                                              th:text="${sc.count}" id="zhenniub\
+                                              i">2</span>
+                                        <div class="add" th:onclick="'javascript:add(\''+${sc.scid}+'\')'">+</div>
+                                    </td>
+                                    <td>
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs">
+                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                                        th:onclick="'javascript:delAll(\''+${sc.scid}+'\')'">
+                                                    <span class="am-icon-pencil-square-o"></span> 删除
+                                                </button>
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                                    </tbody>
-                                </table>
-                                <hr>
+                                </tbody>
+                            </table>
+                            <hr>
                         </div>
 
                     </div>
@@ -143,6 +151,7 @@
                     <div class="col-sm-6">
                         <div class="total_area">
                             <ul>
+                                <li><input style="width: 100%" id="dizhi" type="text" placeholder="收货地址"></li>
                                 <li>总数量 <span th:text="${sumcount}" class="sumcount">
 										<%
 											out.println(totalNum);
@@ -153,9 +162,10 @@
 											out.print("￥：");
 											out.println(totalPrice);
 										%>
-								</span>¥</li>
+								</span>¥
+                                </li>
                                 <span><a class="btn btn-default check_out"
-                                         href="checkout.jsp">去买单</a></span>
+                                         onclick="goumai()">去买单</a></span>
                             </ul>
                         </div>
                     </div>
@@ -174,6 +184,57 @@
 
 <script>
 
+    function goumai() {
+        var $tr = $("#product").find("tr");
+        console.info("数组长度" + $tr.length);
+        var a = {};
+        var orderFormProducts = [];
+        for (var i = 1; i < $tr.length; i++) {
+            var id = $($tr[i]).attr("id");
+            console.info("购物车id" + id);
+            var biao = "." + id;
+            console.info("拼接的选择器" + biao);
+            var count = $($tr[i]).find(biao).html();
+            console.info("商品数量" + count);
+            var pid = $($tr[i]).attr("productid");
+            console.info("商品id" + pid);
+            orderFormProducts.push({"count": count, "product": {"pid": pid}});
+        }
+        a.orderFormProducts = orderFormProducts;
+        var val = $("#dizhi").val();
+        a.address = val;
+        if (val !== null && val !== undefined && val !== "") {
+            var s = JSON.stringify(a);
+            console.log("拼装的json" + s);
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:8080/user/sxorder",
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Cache-Control": "no-cache"
+                },
+                "processData": false,
+                "data": JSON.stringify(a)
+            }
+
+            $.ajax(settings).done(function (response) {
+                console.log(pid);
+                if (response.code == 1) {
+                    alert("已成功购买");
+                } else if (response.code == 0) {
+                    alert("账户余额不足");
+                }
+                else {
+                    alert("购买失败");
+                }
+            });
+        }else {
+            alert("收货地址必须填写");
+        }
+    }
 </script>
 </body>
 

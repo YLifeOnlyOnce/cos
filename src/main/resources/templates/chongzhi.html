@@ -29,7 +29,7 @@
 <!--header-->
 <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
-        <a href="javascript:;" class="tpl-logo">
+        <a href="/user/findallproduct" class="tpl-logo">
             <img src="/assets/img/logo.png" alt="">
         </a>
     </div>
@@ -54,8 +54,13 @@
                 </a>
             </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a th:href="@{~/user/order}">
+                <a th:href="@{~/user/insertproduct}">
                     <span class="am-icon-steam"></span>添加商品
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/chongzhi}">
+                    <span class="am-icon-btc"></span>充值
                 </a>
             </li>
             <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
@@ -67,6 +72,7 @@
                         class="tpl-header-list-user-ico"></span>
                 </a>
                 <ul class="am-dropdown-content">
+                    <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
                     <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
@@ -87,68 +93,45 @@
                         <form class="am-form tpl-form-line-form" action="/user/putproduct" method="post"
                               enctype="multipart/form-data">
                             <div class="am-form-group">
-                                <label for="user-name" class="am-u-sm-3 am-form-label">标题 <span
-                                        class="tpl-form-line-small-title">Title</span></label>
+                                <label for="user-name" class="am-u-sm-3 am-form-label">用户名 </label>
                                 <div class="am-u-sm-9">
-                                    <input type="text" name="pname" class="tpl-form-input" id="user-name"
-                                           placeholder="请输入标题文字">
-                                    <small>请填写标题文字10-20字左右。</small>
+                                    <input type="text" name="username" class="tpl-form-input" id="user-name"
+                                           placeholder="请填写要充值的用户名">
                                 </div>
                             </div>
 
 
                             <div class="am-form-group">
-                                <label class="am-u-sm-3 am-form-label">单价 <span
-                                        class="tpl-form-line-small-title">price</span></label>
+                                <label class="am-u-sm-3 am-form-label">金额</label>
                                 <div class="am-u-sm-9">
-                                    <input type="text" name="price" placeholder="输入单价">
+                                    <input type="number" name="balance" placeholder="输入要充值的金额">
                                 </div>
                             </div>
-                            <div class="am-form-group">
-                                <label class="am-u-sm-3 am-form-label">描述<span
-                                        class="tpl-form-line-small-title">description</span></label>
-                                <div class="am-u-sm-9">
-                                    <input type="text" name="description" placeholder="一行描述，动了食心">
-                                    <small>请填写描述文字</small>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="myImg" class="am-u-sm-3 am-form-label">封面图 <span class="tpl-form-line-small-title">Images</span></label>
-                                <div class="am-u-sm-9">
-                                    <div class="am-form-group am-form-file">
-                                        <div class="tpl-form-file-img">
-                                                <img th:src="@{~/assets/img/a1.png}" id="myImg">
-
-                                            <button type="button" class="am-btn am-btn-danger am-btn-sm" style="margin-top: 10px">
-                                                <i class="am-icon-cloud-upload">添加封面图片</i>
-                                            </button>
-                                            <input id="doc-form-file" name="file" type="file" multiple="multiple"
-                                                   onchange="changImg(event)" required="required">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--<div class="am-form-group">-->
-                                <!--<label for="user-weibo" class="am-u-sm-3 am-form-label">添加分类 <span-->
-                                <!--class="tpl-form-line-small-title">Type</span></label>-->
-                                <!--<div class="am-u-sm-9">-->
-                                <!--<input type="text" id="user-weibo" placeholder="请添加分类用点号隔开">-->
-                                <!--<div>-->
-
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--</div>-->
-
+                        </form>
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交
+                                        <button id="b_chongzhi" class="am-btn am-btn-primary tpl-btn-bg-color-success ">充值
                                         </button>
                                     </div>
                                 </div>
-                        </form>
 
+                        <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+                            <div class="am-modal-dialog">
+                                <div class="am-modal-hd">充值成功</div>
+                                <div class="am-modal-footer">
+                                    <span class="am-modal-btn">确定</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert2">
+                            <div class="am-modal-dialog">
+                                <div class="am-modal-hd">充值失败</div>
+                                <div class="am-modal-footer">
+                                    <span class="am-modal-btn">确定</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -157,25 +140,35 @@
 
 
 
-<script th:src="@{~/assets/js/jquery.min.js}"></script>
-<script th:src="@{~/assets/js/amazeui.min.js}"></script>
-<script th:src="@{~/assets/js/app.js}"></script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/amazeui.min.js"></script>
+<script src="/assets/js/app.js"></script>
 
 <script>
-    function changImg(e) {
-        for (var i = 0; i < e.target.files.length; i++) {
-            var file = e.target.files.item(i);
-            if (!(/^image\/.*$/i.test(file.type))) {
-                continue; //不是图片 就跳出这一次循环
-            }
-            //实例化FileReader API
-            var freader = new FileReader();
-            freader.readAsDataURL(file);
-            freader.onload = function (e) {
-                $("#myImg").attr("src", e.target.result);
-            }
-        }
-    }
+    $(function () {
+        $("#b_chongzhi").on("click", function () {
+            var data = $("form").serialize();
+            $.ajax({
+                type: 'post',
+                async:"false",
+                url: "/user/dochongzhi",
+                cache: false,
+                data: data,
+                success: function (data) {
+                    if(data.code==1) {
+                        $('#my-alert').modal();
+                    }else {
+                        $('#my-alert2').modal();
+                    }
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+
+        });
+    });
+
 </script>
 
 </body>

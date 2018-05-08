@@ -1,9 +1,11 @@
 package com.edu.nuc;
 
 
+import com.edu.nuc.interceptor.UserLoginInterceptor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -58,6 +60,11 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
         } else {
             return linux_path;
         }
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new UserLoginInterceptor()).addPathPatterns("/user/**");
     }
 
 }

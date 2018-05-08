@@ -32,10 +32,10 @@
             <h2>菜品管理</h2>
         </div>
         <div class="step-one">
-            <h2 class="heading">添加菜品信息</h2>
+            <h2 class="heading">修改菜品信息</h2>
         </div>
         <!--<div class="register-req">-->
-            <!--<p>请注意，修改之后将无法恢复原信息</p>-->
+        <!--<p>请注意，修改之后将无法恢复原信息</p>-->
         <!--</div>-->
         <div class="table-responsive cart_info">
 
@@ -47,26 +47,27 @@
                         <div class="shopper-info">
                             <br>
                             <p>菜品信息</p>
-                            <form action="/user/putproduct" method="post" enctype="multipart/form-data">
+                            <form action="/user/updateproduct" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
+                                    <input type="hidden" name="pid" th:value="${product.pid}">
                                     <label for="pname">菜品名称</label>
-                                    <input type="text" class="form-control" id="pname" name="pname" placeholder="菜品名称">
+                                    <input type="text" class="form-control" id="pname" name="pname" th:value="${product.pname}">
                                 </div>
                                 <div class="form-group">
                                     <label for="price">价格</label>
                                     <input
-                                            type="text" class="form-control" id="price" name="price" placeholder="价格">
+                                            type="text" class="form-control" id="price" name="price" th:value="${product.price}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">折扣价</label>
+                                    <input
+                                            type="text" class="form-control" id="discountprice" name="discountprice" th:value="${product.discountprice}">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">描述</label>
                                     <!--<textarea class="form-control" rows="3" placeholder="描述" id="description" name="description"></textarea>-->
                                     <input type="text" class="form-control" id="description" name="description"
-                                        placeholder="描述" rows="3">
-                                </div>
-                                <div class="">
-                                    <label >上传图片</label>
-                                    <input id="doc-form-file" type="file" class="form-control" name="file" multiple="multiple"
-                                           onchange="changImg(event)" required="required">
+                                           th:value="${product.description}" rows="3">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary" width="80"
@@ -83,7 +84,7 @@
 
                             <br>
                             <p>图片预览</p>
-                            <img id="myImg" th:src="@{~/assets/img/a1.png}" height="335" width="335"/>
+                            <img id="myImg" th:src="@{~/__${product.pimg}__}" height="335" width="335"/>
                         </div>
                     </div>
                 </div>

@@ -41,7 +41,4 @@ public interface ProductService {
      * @return 结果
      */
     boolean soldOutProduct(Integer pid);
-
-
-
 }

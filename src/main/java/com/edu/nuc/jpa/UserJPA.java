@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserJPA extends BaseJPA<User,Integer> {
 
     User findByUsernameAndPassword(String username,String password);
+    User findByUsername(String username);
 
     @Modifying
     @Query("update User u set u.password= ?2 where u.username = ?1")

@@ -35,8 +35,18 @@
                 </a>
             </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a th:href="@{~/user/order}">
+                <a th:href="@{~/user/adminOrder}">
                     <span class="am-icon-calendar"></span>订单管理
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/insertproduct}">
+                    <span class="am-icon-steam"></span>添加商品
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/chongzhi}">
+                    <span class="am-icon-btc"></span>充值
                 </a>
             </li>
             <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
@@ -48,6 +58,7 @@
                         class="tpl-header-list-user-ico"></span>
                 </a>
                 <ul class="am-dropdown-content">
+                    <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
                     <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
@@ -69,6 +80,7 @@
 
                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-4" th:each="product,productStat : ${productlist}">
                     <div class="tpl-table-images-content">
+                        <span class="am-icon-close am-success" style="float: right" th:if="${session.user.power} eq 0" th:onclick="'javascript:delp(\''+${product.pid}+'\')'"></span>
                         <!--<div class="tpl-table-images-content-i-time">发布时间：2016-09-12</div>-->
                         <div class="tpl-i-title" th:text="${product.pname}">
                             “你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！
@@ -84,7 +96,7 @@
                             <img style="height: 303px;overflow: hidden" th:src="@{~/__${product.pimg}__}" alt="">
                         </a>
                         <div class="tpl-table-images-content-block">
-                            <div class="tpl-i-font">
+                            <div class="tpl-i-font" th:text="${product.description}">
                                 你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片。
                             </div>
                             <div class="tpl-i-more">
@@ -101,7 +113,6 @@
                                     <li><span class="am-text-success" th:text="'折扣价:'+${product.discountprice}+'¥'"
                                               th:if="${product.discountstatus} eq '0'"> 235+</span></li>
                                     <li><span class="am-icon-github font-green"> 销售量:600+</span></li>
-
                                 </ul>
                             </div>
                             <div class="am-btn-toolbar">
@@ -110,6 +121,10 @@
                                     <button type="button" class=" am-btn am-btn-default am-btn-success"
                                             th:onclick="'javascript:addOdd(\''+${product.pid}+'\')'"><span
                                             class="am-icon-plus"></span>餐车
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-default am-btn-secondary"
+                                            style="float: right"   th:if="${session.user.power} eq 0">
+                                        <a th:href="@{~/user/tranfer?pid=__${product.pid}__}" ><span class="am-icon-archive"></span>修改信息</a>
                                     </button>
                                     <button type="button" class="am-btn am-btn-default am-btn-warning"
                                             style="float: right" id="doc-prompt-toggle"><span
@@ -210,6 +225,23 @@
             }
         });
 
+    }
+    function delp(pid) {
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8080/user/deleteproduct?pid=" + pid,
+            "method": "POST"
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(pid);
+            if(response.code == 0) {
+                alert("删除失败");
+            }else {
+                location.reload();
+            }
+        });
     }
 </script>
 </body>

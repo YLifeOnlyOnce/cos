@@ -23,7 +23,7 @@
 
 <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
-        <a href="javascript:;" class="tpl-logo">
+        <a href="/user/findallproduct" class="tpl-logo">
             <img src="/assets/img/logo.png" alt="">
         </a>
     </div>
@@ -120,7 +120,7 @@
                                             <div class="am-btn-toolbar">
                                                 <div class="am-btn-group am-btn-group-xs">
                                                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
-                                                            th:if="(${order.state} eq 1)and(${session.user.power} eq 1)" th:onclick="'javascript:qr(\''+${order.oid}+'\')'"><span
+                                                            th:if="${order.state} eq 1" th:onclick="'javascript:qr(\''+${order.oid}+'\')'"><span
                                                             class="am-icon-pencil-square-o"></span> 确认收货
                                                     </button>
                                                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
