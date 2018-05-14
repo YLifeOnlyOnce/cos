@@ -1,6 +1,8 @@
 package com.edu.nuc.controller;
 
+import com.edu.nuc.entity.Product;
 import com.edu.nuc.entity.User;
+import com.edu.nuc.service.ProductService;
 import com.edu.nuc.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by macbookair on 2018/4/9.
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Autowired
     UserService userService;
+    @Autowired
+    ProductService productService;
     Logger log = LoggerFactory.getLogger(LoginController.class);
     @RequestMapping("/{page}")
     public String nnnnn(@PathVariable String page){
@@ -55,6 +60,15 @@ public class LoginController {
             return new ModelAndView("redirect:/user/findallproduct");
         }
 
+        return modelAndView;
+    }
+
+    @RequestMapping("/index")
+    public ModelAndView findAllProduct(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("productview");
+        List<Product> productList = productService.findAll();
+        modelAndView.addObject("productlist", productList);
+        log.info("查到所有商品");
         return modelAndView;
     }
 
