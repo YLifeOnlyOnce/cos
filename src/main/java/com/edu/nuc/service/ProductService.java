@@ -1,6 +1,7 @@
 package com.edu.nuc.service;
 
 import com.edu.nuc.entity.Product;
+import com.edu.nuc.entity.ProductType;
 
 import java.util.List;
 import java.util.Map;
@@ -41,4 +42,11 @@ public interface ProductService {
      * @return 结果
      */
     boolean soldOutProduct(Integer pid);
+
+    /**
+     * t通过商品类型查询商品
+     * @param productType
+     * @return
+     */
+    List<Product> findByProductType(ProductType productType);
 }

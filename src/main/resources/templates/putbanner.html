@@ -3,13 +3,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
-    <meta name="description" content="这是一个 index 页面">
-    <meta name="keywords" content="index">
+    <title>添加轮播图</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
@@ -96,89 +93,71 @@
 <div style="height: 80px"></div>
 
 
-            <div class="tpl-block" style="width: 80%">
+<div class="tpl-block" style="width: 80%">
 
-                <div class="am-g">
-                    <div class="tpl-form-body tpl-form-line">
-                        <form class="am-form tpl-form-line-form" action="/user/putproduct" method="post"
-                              enctype="multipart/form-data">
-                            <div class="am-form-group">
-                                <label for="user-name" class="am-u-sm-3 am-form-label">用户名 </label>
-                                <div class="am-u-sm-9">
-                                    <input type="text" name="username" class="tpl-form-input" id="user-name"
-                                           placeholder="请填写要充值的用户名">
-                                </div>
-                            </div>
+    <div class="am-g">
+        <div class="tpl-form-body tpl-form-line">
+            <form class="am-form tpl-form-line-form" action="/user/doputbanner" method="post"
+                  enctype="multipart/form-data">
+                <div class="am-form-group">
+                    <label  class="am-u-sm-3 am-form-label">商品 <span
+                            class="tpl-form-line-small-title">Product</span></label>
+                    <div class="am-u-sm-9">
+                        <select data-am-selected="{searchBox: 1}" name="product.pid">
+                            <option th:each="product,productStat : ${products}" th:value="${product.pid}" th:text="${product.pname}">-The.CC</option>
+                        </select>
+                    </div>
+                </div>
 
+                <div class="am-form-group">
+                    <label for="myImg" class="am-u-sm-3 am-form-label">轮播图 <span class="tpl-form-line-small-title">Images</span></label>
+                    <div class="am-u-sm-9">
+                        <div class="am-form-group am-form-file">
+                            <div class="tpl-form-file-img">
+                                <img th:src="@{~/assets/img/a1.png}" id="myImg">
 
-                            <div class="am-form-group">
-                                <label class="am-u-sm-3 am-form-label">金额</label>
-                                <div class="am-u-sm-9">
-                                    <input type="number" name="balance" placeholder="输入要充值的金额">
-                                </div>
-                            </div>
-                        </form>
-
-                                <div class="am-form-group">
-                                    <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button id="b_chongzhi" class="am-btn am-btn-primary tpl-btn-bg-color-success ">充值
-                                        </button>
-                                    </div>
-                                </div>
-
-                        <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-                            <div class="am-modal-dialog">
-                                <div class="am-modal-hd">充值成功</div>
-                                <div class="am-modal-footer">
-                                    <span class="am-modal-btn">确定</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert2">
-                            <div class="am-modal-dialog">
-                                <div class="am-modal-hd">充值失败</div>
-                                <div class="am-modal-footer">
-                                    <span class="am-modal-btn">确定</span>
-                                </div>
+                                <button type="button" class="am-btn am-btn-danger am-btn-sm" style="margin-top: 10px">
+                                    <i class="am-icon-cloud-upload">添加轮播图片</i>
+                                </button>
+                                <input id="doc-form-file" name="file" type="file" multiple="multiple"
+                                       onchange="changImg(event)" required="required">
                             </div>
                         </div>
                     </div>
+
+                    <div class="am-form-group">
+                        <div class="am-u-sm-9 am-u-sm-push-3">
+                            <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
-
-
-
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/amazeui.min.js"></script>
-<script src="/assets/js/app.js"></script>
+<script th:src="@{~/assets/js/jquery.min.js}"></script>
+<script th:src="@{~/assets/js/amazeui.min.js}"></script>
+<script th:src="@{~/assets/js/app.js}"></script>
 
 <script>
-    $(function () {
-        $("#b_chongzhi").on("click", function () {
-            var data = $("form").serialize();
-            $.ajax({
-                type: 'post',
-                async:"false",
-                url: "/user/dochongzhi",
-                cache: false,
-                data: data,
-                success: function (data) {
-                    if(data.code==1) {
-                        $('#my-alert').modal();
-                    }else {
-                        $('#my-alert2').modal();
-                    }
-                },
-                error: function () {
-                    alert("请求失败");
-                }
-            });
-
-        });
-    });
-
+    function changImg(e) {
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function (e) {
+                $("#myImg").attr("src", e.target.result);
+            }
+        }
+    }
 </script>
 
 </body>

@@ -42,5 +42,5 @@ spring:
 #        suffix: .jsp
 #        prefix: /WEB-INF/
 #
-
-
+  thymeleaf:
+    cache: false

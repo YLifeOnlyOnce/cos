@@ -49,8 +49,28 @@
                 </a>
             </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a th:href="@{~/user/order}">
+                <a th:href="@{~/user/adminOrder}">
                     <span class="am-icon-calendar"></span>订单管理
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/insertproduct}">
+                    <span class="am-icon-steam"></span>添加商品
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/bannerlist}">
+                    <span class="am-icon-picture-o"></span>轮播图
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/productTypelist}">
+                    <span class="am-icon-puzzle-piece"></span>商品类别
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/chongzhi}">
+                    <span class="am-icon-btc"></span>充值
                 </a>
             </li>
             <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
@@ -62,6 +82,7 @@
                         class="tpl-header-list-user-ico"></span>
                 </a>
                 <ul class="am-dropdown-content">
+                    <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
                     <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
@@ -71,6 +92,7 @@
         </ul>
     </div>
 </header>
+
 
 
 <div class="tpl-page-container tpl-page-header-fixed">
@@ -224,6 +246,7 @@
                 console.log(pid);
                 if (response.code == 1) {
                     alert("已成功购买");
+                    window.location.href="order";
                 } else if (response.code == 0) {
                     alert("账户余额不足");
                 }

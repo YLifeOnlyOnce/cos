@@ -36,7 +36,18 @@ public class Product {
 //    商品描述
     @Column
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "ptid" , referencedColumnName = "ptid")
+    private ProductType productType;
 
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
 
     public String getDescription() {
         return description;

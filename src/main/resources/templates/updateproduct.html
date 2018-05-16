@@ -18,16 +18,75 @@
 </head>
 
 <body style="height: 1500px;background-color: white">
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <a href="javascript:;" class="tpl-logo">
+            <img src="/assets/img/logo.png" alt="">
+        </a>
+    </div>
+
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/findallbyuid}">
+                    <span class="am-icon-bell-o"></span> 购物车
+                </a>
+            </li>
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/order}">
+                    <span class="am-icon-calendar"></span>订单
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/adminOrder}">
+                    <span class="am-icon-calendar"></span>订单管理
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/insertproduct}">
+                    <span class="am-icon-steam"></span>添加商品
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/bannerlist}">
+                    <span class="am-icon-picture-o"></span>轮播图
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/productTypelist}">
+                    <span class="am-icon-puzzle-piece"></span>商品类别
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/chongzhi}">
+                    <span class="am-icon-btc"></span>充值
+                </a>
+            </li>
+            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
+                    class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                    <span class="tpl-header-list-user-nick" th:text="${session.user.username}">用户名称</span><span
+                        class="tpl-header-list-user-ico"></span>
+                </a>
+                <ul class="am-dropdown-content">
+                    <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
+                    <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
+                    <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{~/login}" class="tpl-header-list-link"><span
+                    class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
+        </ul>
+    </div>
+</header>
+
+<div style="height: 80px"></div>
 <section id="cart_items">
     <div class="container">
-        <div class="breadcrumbs">
-            <ol class="breadcrumb">
-                <li><a href="#">Admin</a></li>
-                <li class="active">菜品管理</li>
-                <li class="active">菜品添加</li>
-            </ol>
-        </div>
-
         <div class="review-payment">
             <h2>菜品管理</h2>
         </div>
@@ -62,6 +121,13 @@
                                     <label for="price">折扣价</label>
                                     <input
                                             type="text" class="form-control" id="discountprice" name="discountprice" th:value="${product.discountprice}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="producttype">商品分类</label>
+                                    <!--<textarea class="form-control" rows="3" placeholder="描述" id="description" name="description"></textarea>-->
+                                    <select data-am-selected="{searchBox: 1}" name="productType.ptid" class="form-control" id="producttype">
+                                        <option th:each="productType,productTypeStat : ${producterType}" th:value="${productType.ptid}" th:text="${productType.name}" th:selected="${productType.ptid eq product.productType.ptid}">-The.CC</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">描述</label>

@@ -14,4 +14,5 @@ public interface ShoppingCartJpa extends BaseJPA<ShoppingCart,Integer> {
 
     ShoppingCart findByUserAndProduct(User user, Product product);
 
+    void deleteAllByUser(User user);
 }

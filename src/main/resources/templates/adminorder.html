@@ -141,10 +141,6 @@
                                             <div class="am-btn-toolbar">
                                                 <div class="am-btn-group am-btn-group-xs">
                                                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
-                                                            th:if="${order.state} eq 1" th:onclick="'javascript:qr(\''+${order.oid}+'\')'"><span
-                                                            class="am-icon-pencil-square-o"></span> 确认收货
-                                                    </button>
-                                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
                                                             th:if="(${order.state} eq 0)and(${session.user.power} eq 0)" th:onclick="'javascript:fh(\''+${order.oid}+'\')'"><span
                                                             class="am-icon-pencil-square-o"></span> 发货
                                                     </button>

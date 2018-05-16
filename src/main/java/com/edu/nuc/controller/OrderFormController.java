@@ -40,7 +40,7 @@ public class OrderFormController {
 
     @RequestMapping("/adminOrder")
     public ModelAndView adminOrder(HttpSession session) {
-        ModelAndView order = new ModelAndView("order");
+        ModelAndView order = new ModelAndView("adminorder");
         User user = (User) session.getAttribute("user");
         log.info("管理员查看订单，身份"+user.getPower());
         log.info("session取出的user" + user.getUid());

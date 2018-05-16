@@ -1,10 +1,14 @@
 package com.edu.nuc.controller;
 
 import com.edu.nuc.MyWebAppConfigurer;
+import com.edu.nuc.entity.Banner;
 import com.edu.nuc.entity.Product;
+import com.edu.nuc.entity.ProductType;
 import com.edu.nuc.entity.User;
+import com.edu.nuc.jpa.BannerJPA;
 import com.edu.nuc.jpa.UserJPA;
 import com.edu.nuc.service.ProductService;
+import com.edu.nuc.service.ProductTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,10 @@ public class ProductController {
     UserJPA userJPA;
     @Autowired
     MyWebAppConfigurer webAppConfigurer;
+    @Autowired
+    BannerJPA bannerJPA;
+    @Autowired
+    ProductTypeService productTypeService;
     Logger log = LoggerFactory.getLogger(ProductController.class);
 
     /**
@@ -49,13 +57,35 @@ public class ProductController {
         user = userJPA.getOne(user.getUid());
         session.setAttribute("user",user);
         modelAndView.addObject("productlist", productList);
+        List<Banner> all = bannerJPA.findAll();
+        modelAndView.addObject("banners", all);
+        List<ProductType> all1 = productTypeService.findAll();
+        modelAndView.addObject("productTypes", all1);
         log.info("查到所有商品");
+        return modelAndView;
+    }
+    @RequestMapping("/findProductByType")
+    public ModelAndView findProductByType(ProductType productType,HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("productview");
+        List<Product> productList = productService.findByProductType(productType);
+        User user = (User) session.getAttribute("user");
+        user = userJPA.getOne(user.getUid());
+        session.setAttribute("user",user);
+        modelAndView.addObject("productlist", productList);
+        List<Banner> all = bannerJPA.findAll();
+        modelAndView.addObject("banners", all);
+        List<ProductType> all1 = productTypeService.findAll();
+        modelAndView.addObject("productTypes", all1);
+        modelAndView.addObject("nowptid", productType.getPtid());
         return modelAndView;
     }
 
     @RequestMapping("/insertproduct")
     public ModelAndView putproduct() {
-        return new ModelAndView("putproduct");
+        ModelAndView modelAndView = new ModelAndView("putproduct");
+        List<ProductType> all = productTypeService.findAll();
+        modelAndView.addObject("productTypes", all);
+        return modelAndView;
     }
 
     /**
@@ -106,6 +136,8 @@ public class ProductController {
         Product pByPid = productService.findPByPid(pid);
         ModelAndView modelAndView = new ModelAndView("updateproduct");
         modelAndView.addObject("product",pByPid);
+        List<ProductType> all = productTypeService.findAll();
+        modelAndView.addObject("producterType", all);
         return modelAndView;
     }
 
@@ -117,6 +149,7 @@ public class ProductController {
         findedproduct.setPrice(product.getPrice());
         findedproduct.setDiscountprice(product.getDiscountprice());
         findedproduct.setDescription(product.getDescription());
+        findedproduct.setProductType(product.getProductType());
         productService.putProduct(findedproduct);
         return new ModelAndView("redirect:/user/findallproduct");
     }

@@ -1,6 +1,7 @@
 package com.edu.nuc.service.Imp;
 
 import com.edu.nuc.entity.Product;
+import com.edu.nuc.entity.ProductType;
 import com.edu.nuc.jpa.ProductJPA;
 import com.edu.nuc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,10 @@ public class ProductServiceImp implements ProductService {
         return true;
     }
 
+    @Override
+    public List<Product> findByProductType(ProductType productType) {
+        return productJPA.findByProductType(productType);
+    }
 
 
 }

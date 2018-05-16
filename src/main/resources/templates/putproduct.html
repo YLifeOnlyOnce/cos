@@ -29,7 +29,7 @@
 <!--header-->
 <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
-        <a href="javascript:;" class="tpl-logo">
+        <a href="/user/findallproduct" class="tpl-logo">
             <img src="/assets/img/logo.png" alt="">
         </a>
     </div>
@@ -49,13 +49,28 @@
                 </a>
             </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a th:href="@{~/user/order}">
+                <a th:href="@{~/user/adminOrder}">
                     <span class="am-icon-calendar"></span>订单管理
                 </a>
             </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a th:href="@{~/user/order}">
+                <a th:href="@{~/user/insertproduct}">
                     <span class="am-icon-steam"></span>添加商品
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/bannerlist}">
+                    <span class="am-icon-picture-o"></span>轮播图
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/productTypelist}">
+                    <span class="am-icon-puzzle-piece"></span>商品类别
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/chongzhi}">
+                    <span class="am-icon-btc"></span>充值
                 </a>
             </li>
             <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
@@ -67,6 +82,7 @@
                         class="tpl-header-list-user-ico"></span>
                 </a>
                 <ul class="am-dropdown-content">
+                    <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
                     <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
@@ -96,6 +112,15 @@
                                 </div>
                             </div>
 
+                            <div class="am-form-group">
+                                <label  class="am-u-sm-3 am-form-label">商品类别 <span
+                                        class="tpl-form-line-small-title">ProductType</span></label>
+                                <div class="am-u-sm-9">
+                                    <select data-am-selected="{searchBox: 1}" name="productType.ptid">
+                                        <option th:each="productType,productTypeStat : ${productTypes}" th:value="${productType.ptid}" th:text="${productType.name}">-The.CC</option>
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="am-form-group">
                                 <label class="am-u-sm-3 am-form-label">单价 <span

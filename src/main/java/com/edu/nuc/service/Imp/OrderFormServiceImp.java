@@ -4,20 +4,19 @@ import com.edu.nuc.entity.OrderForm;
 import com.edu.nuc.entity.OrderFormProduct;
 import com.edu.nuc.entity.Product;
 import com.edu.nuc.entity.User;
-import com.edu.nuc.jpa.OrderFormJpa;
-import com.edu.nuc.jpa.OrderFormProductJpa;
-import com.edu.nuc.jpa.ProductJPA;
-import com.edu.nuc.jpa.UserJPA;
+import com.edu.nuc.jpa.*;
 import com.edu.nuc.service.OrderFormService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class OrderFormServiceImp implements OrderFormService {
     Logger log = LoggerFactory.getLogger(OrderFormServiceImp.class);
     @Autowired
@@ -28,6 +27,8 @@ public class OrderFormServiceImp implements OrderFormService {
     OrderFormProductJpa orderFormProductJpa;
     @Autowired
     UserJPA userJPA;
+    @Autowired
+    ShoppingCartJpa shoppingCartJpa;
     @Override
     public boolean insertOrder(OrderForm orderForm) {
         orderForm.setState(OrderForm.place);
@@ -57,6 +58,7 @@ public class OrderFormServiceImp implements OrderFormService {
         user.setBalance(balance.subtract(zj));
         userJPA.save(user);
         orderFormJpa.save(orderForm);
+        shoppingCartJpa.deleteAllByUser(user);
         return true;
     }
 
