@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
+    <title>订单管理</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,6 +63,11 @@
                 </a>
             </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/userlist}">
+                    <span class="am-icon-book"></span>用户管理
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                 <a th:href="@{~/user/chongzhi}">
                     <span class="am-icon-btc"></span>充值
                 </a>
@@ -78,10 +83,10 @@
                 <ul class="am-dropdown-content">
                     <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
-                    <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
+                    <li><a th:href="@{~/exit}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
             </li>
-            <li><a th:href="@{~/login}" class="tpl-header-list-link"><span
+            <li><a th:href="@{~/exit}" class="tpl-header-list-link"><span
                     class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
         </ul>
     </div>
@@ -96,7 +101,7 @@
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="caption font-green bold">
-                    <span class="am-icon-code"></span> 订单
+                    <span class="am-icon-code"></span> 所有用户
                 </div>
 
 
@@ -110,12 +115,14 @@
                                     <thead>
                                     <tr>
                                         <th class="table-title">商品名称</th>
+                                        <th class="table-title">购买人</th>
                                         <th class="table-type">数量</th>
                                         <th class="table-type">总价</th>
                                         <th class="table-type">状态</th>
                                         <th class="table-type">收货地址</th>
                                         <th class="table-date am-hide-sm-only">下单时间</th>
                                         <th class="table-date am-hide-sm-only">发货时间</th>
+                                        <th class="table-date am-hide-sm-only">收货时间</th>
                                         <th class="table-set">操作</th>
                                     </tr>
                                     </thead>
@@ -130,6 +137,7 @@
                                             <p th:each="product  : ${order.orderFormProducts}"
                                                th:text="${product.count}">*1</p>
                                         </td>
+                                        <td th:text="${order.user.username}">23.2￥</td>
                                         <td th:text="${order.totalPrices}">23.2￥</td>
                                         <td th:if="${order.state} eq 1">已发货</td>
                                         <td th:if="${order.state} eq 0">下单成功</td>
@@ -137,6 +145,7 @@
                                         <td th:text="${order.address}"></td>
                                         <td class="am-hide-sm-only" th:text="${order.placeTime}">2014年9月4日 7:28:47</td>
                                         <td class="am-hide-sm-only" th:text="${order.senfOfTime}">2014年9月4日 7:28:47</td>
+                                        <td class="am-hide-sm-only" th:text="${order.takeTime}">2014年9月4日 7:28:47</td>
                                         <td>
                                             <div class="am-btn-toolbar">
                                                 <div class="am-btn-group am-btn-group-xs">

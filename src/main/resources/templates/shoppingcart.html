@@ -68,6 +68,12 @@
                     <span class="am-icon-puzzle-piece"></span>商品类别
                 </a>
             </li>
+
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/userlist}">
+                    <span class="am-icon-book"></span>用户管理
+                </a>
+            </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                 <a th:href="@{~/user/chongzhi}">
                     <span class="am-icon-btc"></span>充值
@@ -84,10 +90,10 @@
                 <ul class="am-dropdown-content">
                     <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
-                    <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
+                    <li><a th:href="@{~/exit}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
             </li>
-            <li><a th:href="@{~/login}" class="tpl-header-list-link"><span
+            <li><a th:href="@{~/exit}" class="tpl-header-list-link"><span
                     class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
         </ul>
     </div>
@@ -118,7 +124,7 @@
                                     <th class="table-image"></th>
                                     <th class="table-title">商品名称</th>
                                     <th class="table-type">原价</th>
-                                    <th class="table-type">现价</th>
+                                    <th class="table-type">折扣价</th>
                                     <th class="table-type">数量</th>
                                     <th class="table-set">操作</th>
                                 </tr>
@@ -139,8 +145,7 @@
                                         <div class="del" th:onclick="'javascript:del(\''+${sc.scid}+'\')'">
                                             <strong>-</strong></div>
                                         <span th:class="${sc.scid}" style="float: left;color: #ff6033"
-                                              th:text="${sc.count}" id="zhenniub\
-                                              i">2</span>
+                                              th:text="${sc.count}" id="zhenniubi" >2</span>
                                         <div class="add" th:onclick="'javascript:add(\''+${sc.scid}+'\')'">+</div>
                                     </td>
                                     <td>

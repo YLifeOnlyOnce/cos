@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,6 +151,13 @@ public class ProductController {
         findedproduct.setDiscountprice(product.getDiscountprice());
         findedproduct.setDescription(product.getDescription());
         findedproduct.setProductType(product.getProductType());
+        BigDecimal discountprice = product.getDiscountprice();
+        double v = discountprice.doubleValue();
+        if (v != 0) {
+            findedproduct.setDiscountstatus(Product.discount);
+        } else {
+            findedproduct.setDiscountstatus(Product.notdiscount);
+        }
         productService.putProduct(findedproduct);
         return new ModelAndView("redirect:/user/findallproduct");
     }

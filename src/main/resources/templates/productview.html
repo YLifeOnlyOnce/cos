@@ -62,6 +62,11 @@
                 </a>
             </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/userlist}">
+                    <span class="am-icon-book"></span>用户管理
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                 <a th:href="@{~/user/chongzhi}">
                     <span class="am-icon-btc"></span>充值
                 </a>
@@ -77,10 +82,10 @@
                 <ul class="am-dropdown-content">
                     <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
-                    <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
+                    <li><a th:href="@{~/exit}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
             </li>
-            <li><a th:href="@{~/login}" class="tpl-header-list-link"><span
+            <li><a th:href="@{~/exit}" class="tpl-header-list-link"><span
                     class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
         </ul>
     </div>
@@ -90,7 +95,7 @@
 
 <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
     <ul class="am-slides">
-        <li th:each="banner,bannerStat : ${banners}"><img th:src="@{~/__${banner.bimg}__}" height="500px" th:onclick="'javascript:mode(\''+${banner.bid}+'\')'"/>
+        <li th:each="banner,bannerStat : ${banners}"><img th:src="@{~/__${banner.bimg}__}" height="400px" th:onclick="'javascript:mode(\''+${banner.bid}+'\')'"/>
         </li>
     </ul>
 </div>
@@ -122,7 +127,7 @@
                             </li>
                             <li><span class="am-text-success" th:text="'折扣价:'+${banner.product.discountprice}+'¥'"
                                       th:if="${banner.product.discountstatus} eq '0'"> 235+</span></li>
-                            <li><span class="am-icon-github font-green"> 销售量:600+</span></li>
+                            <li><span class="am-icon-github font-green" th:text="'销售量:'+${banner.product.salesnumb}"> 销售量:600+</span></li>
                         </ul>
                     </div>
                     <div class="am-btn-toolbar">
@@ -180,7 +185,7 @@
                                     </li>
                                     <li><span class="am-text-success" th:text="'折扣价:'+${product.discountprice}+'¥'"
                                               th:if="${product.discountstatus} eq '0'"> 235+</span></li>
-                                    <li><span class="am-icon-github font-green"> 销售量:600+</span></li>
+                                    <li><span class="am-icon-github font-green" th:text="'销售量:'+${product.salesnumb}"> 销售量:600+</span></li>
                                 </ul>
                             </div>
                             <div class="am-btn-toolbar">
@@ -195,11 +200,11 @@
                                         <a th:href="@{~/user/tranfer?pid=__${product.pid}__}" ><div style="color: white"><spainfon class="am-icon-"></spainfon>修改信息</div></a>
                                     </button>
                                     <button type="button" class="am-btn am-btn-default am-btn-warning"
-                                            style="float: right" id="doc-prompt-toggle"><span
+                                            style="float: right" id="doc-prompt-toggle" th:onclick="'javascript:goumaimod(\''+${product.pid}+'\')'"><span
                                             class="am-icon-archive" ></span> 购买
                                     </button>
 
-                                    <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt" th:attr="productid=${product.pid}"  >
+                                    <div class="am-modal am-modal-prompt" tabindex="-1" th:attr="productid=${product.pid}"  th:id="${'my-prompt-'+product.pid}">
                                         <div class="am-modal-dialog">
                                             <div class="am-modal-hd">购买</div>
                                             <div class="am-modal-bd">
@@ -231,23 +236,24 @@
 <script th:src="@{~/assets/js/page.js}"></script>
 <script th:inline="javascript">
 
-    $(function () {
-        $('#doc-prompt-toggle').on('click', function () {
-            $('#my-prompt').modal({
-                relatedTarget: this,
-                onConfirm: function (e) {
-                    var $target = $(e.target);
-                    var pid = $target.attr('productid');
-                    var address = e.data;
-                    console.info("商品id："+pid+"收货地址："+address);
-                    goumai(pid, address);
-                },
-                onCancel: function (e) {
 
-                }
-            });
+
+    function goumaimod(id) {
+        var id = "#my-prompt-" + id;
+        $(id).modal({
+            relatedTarget: this,
+            onConfirm: function (e) {
+                var $target = $(e.target);
+                var pid = $target.attr('productid');
+                var address = e.data;
+                console.info("商品id："+pid+"收货地址："+address);
+                goumai(pid, address);
+            },
+            onCancel: function (e) {
+
+            }
         });
-    });
+    }
 
     function addOdd(pid) {
         console.log(pid);

@@ -29,11 +29,25 @@ public class RegistController {
      */
     @RequestMapping("/regist")
     public ModelAndView regist(User user) {
-        user.setPower(user.userpower);
+        user.setPower(User.userpower);
         user.setBalance(new BigDecimal(0));
         ModelAndView modelAndView = new ModelAndView("/login");
         modelAndView.addObject("user",user);
         User user1 = userService.regist(user);
         return modelAndView;
+    }
+
+    @RequestMapping("/registAdmin")
+    public ModelAndView registAdmin(User user) {
+        user.setPower(User.adminpower);
+        user.setBalance(new BigDecimal(0));
+        ModelAndView modelAndView = new ModelAndView("redirect:/user/userlist");
+        User user1 = userService.regist(user);
+        return modelAndView;
+    }
+
+    @RequestMapping("/user/signAdmin")
+    public ModelAndView registAdminPage() {
+        return new ModelAndView("/sign-admin");
     }
 }

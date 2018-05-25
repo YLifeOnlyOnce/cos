@@ -60,6 +60,11 @@
                 </a>
             </li>
             <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a th:href="@{~/user/userlist}">
+                    <span class="am-icon-book"></span>用户管理
+                </a>
+            </li>
+            <li th:if="${session.user.power} eq 0" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                 <a th:href="@{~/user/chongzhi}">
                     <span class="am-icon-btc"></span>充值
                 </a>
@@ -75,10 +80,10 @@
                 <ul class="am-dropdown-content">
                     <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
-                    <li><a th:href="@{~/login}"><span class="am-icon-power-off"></span> 退出</a></li>
+                    <li><a th:href="@{~/exit}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
             </li>
-            <li><a th:href="@{~/login}" class="tpl-header-list-link"><span
+            <li><a th:href="@{~/exit}" class="tpl-header-list-link"><span
                     class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
         </ul>
     </div>

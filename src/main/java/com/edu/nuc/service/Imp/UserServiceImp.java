@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by macbookair on 2018/4/9.
@@ -50,4 +51,10 @@ public class UserServiceImp implements UserService{
         userJPA.save(one);
         return true;
     }
+
+    @Override
+    public List<User> findAll() {
+        return userJPA.findAll();
+    }
+
 }

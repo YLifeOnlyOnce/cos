@@ -36,14 +36,15 @@ public class LoginController {
     @Autowired
     ProductTypeService productTypeService;
     Logger log = LoggerFactory.getLogger(LoginController.class);
+
     @RequestMapping("/{page}")
-    public String nnnnn(@PathVariable String page){
-        log.info("访问"+page);
+    public String nnnnn(@PathVariable String page) {
+        log.info("访问" + page);
         return page;
     }
 
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         log.info("访问首页");
         return "redirect:/index";
     }
@@ -51,25 +52,34 @@ public class LoginController {
 
     /**
      * 登陆
+     *
      * @param user
      * @param session
      * @return
      */
     @RequestMapping("/doLogin")
-    public ModelAndView login(User user, HttpSession session){
+    public ModelAndView login(User user, HttpSession session) {
 
         ModelAndView modelAndView = new ModelAndView("index");
 
         User user1 = userService.findByUsernameAPassword(user);
-        if (user1==null){
+        if (user1 == null) {
             modelAndView.setViewName("login");
-            modelAndView.addObject("loginerror","用户名或密码错误");
-        }else {
+            modelAndView.addObject("loginerror", "用户名或密码错误");
+        } else {
             log.info("登录成功");
-            session.setAttribute("user",user1);
+            session.setAttribute("user", user1);
             return new ModelAndView("redirect:/user/findallproduct");
         }
 
+        return modelAndView;
+    }
+
+    @RequestMapping("/exit")
+    public ModelAndView exit(HttpSession session) {
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/index");
+        session.setAttribute("user", null);
         return modelAndView;
     }
 
@@ -87,7 +97,7 @@ public class LoginController {
     }
 
     @RequestMapping("/findProductByType")
-    public ModelAndView findProductByType(ProductType productType,HttpSession session) {
+    public ModelAndView findProductByType(ProductType productType, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("productviewindex");
         List<Product> productList = productService.findByProductType(productType);
         User user = (User) session.getAttribute("user");

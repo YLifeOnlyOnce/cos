@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>轮播图管理</title>
+    <title>用户管理</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,13 +20,13 @@
 
 <body data-type="generalComponents">
 
+
 <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
         <a href="/user/findallproduct" class="tpl-logo">
             <img src="/assets/img/logo.png" alt="">
         </a>
     </div>
-
 
     <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
@@ -80,7 +80,8 @@
                         class="tpl-header-list-user-ico"></span>
                 </a>
                 <ul class="am-dropdown-content">
-                    <li><a href="javascript:;" ><span class="am-icon-btc"th:text="${session.user.balance}"></span></a></li>
+                    <li><a href="javascript:;"><span class="am-icon-btc" th:text="${session.user.balance}"></span></a>
+                    </li>
                     <li><a th:href="@{~/changepassword}"><span class="am-icon-cog"></span> 修改密码</a></li>
                     <li><a th:href="@{~/exit}"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
@@ -100,46 +101,65 @@
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="caption font-green bold">
-                    <span class="am-icon-code"></span> 轮播图
+                    <span class="am-icon-code"></span> 订单
                 </div>
 
+
             </div>
-            <a class="am-btn am-btn-default am-btn-xs am-text-secondary" th:href="@{~/user/putbanner}">
+            <a class="am-btn am-btn-default am-btn-xs am-text-secondary" th:href="@{~/user/signAdmin}">
                     <span
-                    class="am-icon-pencil-square-o"></span> 添加轮播图
+                            class="am-icon-pencil-square-o"></span> 添加管理员
             </a>
             <div class="tpl-block">
                 <div class="am-g">
                     <div class="am-g">
                         <div class="am-u-sm-12">
-                                <table class="am-table am-table-striped am-table-hover table-main">
-                                    <thead>
-                                    <tr>
-                                        <th class="table-title">轮播图</th>
-                                        <th class="table-type">对应商品名称</th>
-                                        <th class="table-set">操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                            <table class="am-table am-table-striped am-table-hover table-main">
+                                <thead>
+                                <tr>
+                                    <th class="table-title">序号</th>
+                                    <th class="table-type">用户名</th>
+                                    <th class="table-type">余额</th>
+                                    <th class="table-type">权限</th>
+                                    <th class="table-set">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                                    <tr th:each="banner,bannerStat : ${banners}">
-                                        <td><img th:src="@{~/__${banner.bimg}__}" style="width: 100px; height: 100px"></td>
-                                        <td th:text="${banner.product.pname}"></td>
-                                        <td>
-                                            <div class="am-btn-toolbar">
-                                                <div class="am-btn-group am-btn-group-xs">
-                                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"
-                                                            th:onclick="'javascript:del(\''+${banner.bid}+'\')'"><span
-                                                            class="am-icon-pencil-square-o"></span> 删除
-                                                    </button>
+                                <tr th:each="user,userStat : ${users}">
+                                    <td th:text="${userStat.count}"></td>
+                                    <td th:text="${user.username}"></td>
+                                    <td th:text="${user.balance}"></td>
+                                    <td th:if="${user.power} eq 0">管理员</td>
+                                    <td th:if="${user.power} eq 1">用户</td>
+                                    <td>
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs">
+                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary" th:onclick="'javascript:goumaimod(\''+${user.uid}+'\')'"><span
+                                                        class="am-icon-pencil-square-o" ></span> 修改密码
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt" th:attr="username=${user.username}"  th:id="${'my-prompt-'+user.uid}">
+                                            <div class="am-modal-dialog">
+                                                <div class="am-modal-hd">修改密码</div>
+                                                <div class="am-modal-bd">
+                                                    请输新密码
+                                                    <input type="text" class="am-modal-prompt-input">
+                                                </div>
+                                                <div class="am-modal-footer">
+                                                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                                                    <span class="am-modal-btn" data-am-modal-confirm>确认</span>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
 
-                                <hr>
+                            <hr>
                         </div>
 
                     </div>
@@ -155,19 +175,37 @@
 <script th:src="@{~/assets/js/jquery.min.js}"></script>
 <script th:src="@{~/assets/js/amazeui.min.js}"></script>
 <script th:src="@{~/assets/js/app.js}"></script>
-<script >
-function del(bid) {
-    var settings1 = {
-        "async": true,
-        "crossDomain": true,
-        "url": "http://localhost:8080/user/deleteBannner?bid=" + bid,
-        "method": "POST"
-    };
+<script>
+    function goumaimod(id) {
+        var id = "#my-prompt-" + id;
+        $(id).modal({
+            relatedTarget: this,
+            onConfirm: function (e) {
+                var $target = $(e.target);
+                var pid = $target.attr('username');
+                var address = e.data;
+                console.info("商品id："+pid+"新密码："+address);
+                changepassword(pid, address);
+            },
+            onCancel: function (e) {
 
-    $.ajax(settings1).done(function (response) {
-        location.reload();
-    });
-}
+            }
+        });
+    }
+
+    function changepassword(uid,password) {
+        var settings1 = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8080/user/update?username=" + uid+"&password="+password,
+            "method": "POST"
+        };
+
+        $.ajax(settings1).done(function (response) {
+            location.reload();
+        });
+    }
+
 </script>
 </body>
 

@@ -35,6 +35,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public void putProduct(Product product) {
+        product.setSalesnumb(0);
         Product save = productJPA.save(product);
     }
 

@@ -64,9 +64,6 @@ public class UpdateController {
         Map map = new HashMap<String, String>();
         User byUsername = userJPA.findByUsername(user.getUsername());
         boolean b = userService.topUpRecharge(byUsername.getUid(), user.getBalance());
-        User luser = (User) session.getAttribute("user");
-        luser = userJPA.getOne(byUsername.getUid());
-        session.setAttribute("user",luser);
         if (b) {
             map.put("code", "1");
         } else {
