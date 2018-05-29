@@ -101,7 +101,7 @@
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="caption font-green bold">
-                    <span class="am-icon-code"></span> 所有用户
+                    <span class="am-icon-code"></span> 订单管理
                 </div>
 
 
@@ -133,11 +133,11 @@
                                             <p th:each="product  : ${order.orderFormProducts}"
                                                th:text="${product.product.pname}">红烧棉儿</p>
                                         </td>
+                                        <td th:text="${order.user.username}">23.2￥</td>
                                         <td>
                                             <p th:each="product  : ${order.orderFormProducts}"
                                                th:text="${product.count}">*1</p>
                                         </td>
-                                        <td th:text="${order.user.username}">23.2￥</td>
                                         <td th:text="${order.totalPrices}">23.2￥</td>
                                         <td th:if="${order.state} eq 1">已发货</td>
                                         <td th:if="${order.state} eq 0">下单成功</td>

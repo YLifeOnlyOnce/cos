@@ -57,4 +57,10 @@ public class UserServiceImp implements UserService{
         return userJPA.findAll();
     }
 
+    @Override
+    public boolean deleteByID(Integer uid) {
+        userJPA.deleteById(uid);
+        return true;
+    }
+
 }

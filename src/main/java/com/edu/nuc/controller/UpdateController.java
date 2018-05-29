@@ -43,7 +43,7 @@ public class UpdateController {
             return new ModelAndView("redirect:/login");
         } else log.info("修改失败,用户名不存在");
 
-        ModelAndView modelAndView = new ModelAndView("/userinfochange");
+        ModelAndView modelAndView = new ModelAndView("/changepassword");
         modelAndView.addObject("updateerror", "用户名不存在，修改失败");
         return modelAndView;
     }

@@ -110,6 +110,14 @@ public class LoginController {
         return modelAndView;
     }
 
+    @RequestMapping("/changepassword")
+    public ModelAndView findProductByType(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("changepassword");
+        User user = (User)session.getAttribute("user");
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
 }
 
 
